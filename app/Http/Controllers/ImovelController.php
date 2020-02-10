@@ -1,0 +1,237 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Imovel;
+use App\ImovelFotos;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+
+class ImovelController extends Controller
+{
+
+    public function index()
+    {
+        $imoveis = Imovel::all();
+        $verificacao = 1;
+        $valor = 35;
+
+        return view('login.Imoveis.gerenciamento', compact('imoveis', 'verificacao', 'valor'));
+    }
+
+    public function front()
+    {
+        return redirect(route('gerenciamento-imoveis'))->with('msg', 'Anúncio alterado com sucesso!');
+    }
+
+    public function create()
+    {
+        return view('login.Imoveis.cadastrar');
+    }
+
+
+    public function store(Request $request)
+    {
+        $imovel = new Imovel();
+
+        $imovel->nome = $request->nome;
+        $imovel->endereco = $request->endereco;
+        $imovel->cep = $request->cep;
+        $imovel->cidade = $request->cidade;
+        $imovel->estado = $request->estado;
+        $imovel->tipo_imovel = $request->tipo_imovel;
+        $imovel->qt_quartos = $request->qt_quartos;
+        $imovel->qt_suites = $request->qt_suites;
+        $imovel->vagas_garagem = $request->vagas;
+        $imovel->tx_condominio = $request->tx_cond;
+        $imovel->tipo_negocio = $request->t_negocio;
+        $imovel->descricao = $request->descricao;
+        $imovel->save();
+
+        return redirect(route('imovel-fotos', $imovel->id))->with('msg', 'Seu anúncio está quase pronto. Agora selecione as imagens que deseja colocar no anúncio.');
+    }
+
+
+
+    public function capturarFotos(Request $request, $id)
+    {
+        $id = $request->id;
+        return view('login.Imoveis.cadastrar-fotos', compact('id'));
+    }
+
+
+
+    public function storeFotos(Request $request, $id)
+    {
+
+        //De onde o arquivo vem e para onde ele vai.
+        $arquivo = $_FILES['fotos'];
+
+        $diretorio = "storage/images";
+
+        //Estrutura para rodar quantas vezes for conforme a quantidade de fotos.
+        for ($controle = 0; $controle < count($arquivo['name']); $controle++){
+
+            $nome = $diretorio . "/" . rand() . $arquivo['name'][$controle];
+
+            //Salvando as fotos.
+            $fotos = new ImovelFotos();
+
+            $fotos->id_anuncio = $request->id;
+            $fotos->foto_anuncio = $nome;
+            $fotos->nome_original = $arquivo['name'][$controle];
+            $fotos->save();
+
+            //Movendo as fotos.
+            $destino = $nome;
+
+            move_uploaded_file($arquivo['tmp_name'][$controle], $destino);
+        }
+
+        return redirect(route('gerenciamento-imoveis'))->with('msg', 'Imóvel cadastrado com sucesso!');
+    }
+
+
+    public function show($id)
+    {
+        $imovel = Imovel::find($id);
+        $imagens = DB::table('imovel_fotos')->selectRaw('foto_anuncio')
+            ->whereRaw('id_anuncio = '. $id)->get();
+
+
+        return view('login.Imoveis.imovel', compact('imagens', 'imovel'));
+    }
+
+
+    public function edit($id)
+    {
+        $imovel = Imovel::find($id);
+
+        return view('login.Imoveis.edicao-imovel', compact('imovel'));
+    }
+
+
+    public function update(Request $request, $id)
+    {
+       $imovel = Imovel::find($id);
+
+       $imovel->nome = $request->nome ;
+       $imovel->cep = $request->cep ;
+       $imovel->endereco = $request->endereco ;
+       $imovel->cidade = $request->cidade ;
+       $imovel->estado = $request->estado ;
+       $imovel->tipo_imovel = $request->tipo_imovel ;
+       $imovel->qt_quartos = $request->qt_quartos ;
+       $imovel->qt_suites = $request->qt_suites ;
+       $imovel->vagas_garagem = $request->vagas_garagem ;
+       $imovel->tx_condominio = $request->tx_condominio ;
+       $imovel->tipo_negocio = $request->tipo_negocio ;
+       $imovel->descricao = $request->descricao ;
+       $imovel->save();
+
+       return redirect(route('update-fotos', $id));
+    }
+
+    public function updateFotos($id)
+    {
+        $imagens = DB::table('imovel_fotos')->selectRaw('nome_original')
+            ->selectRaw('id')
+            ->whereRaw('id_anuncio = '. $id)->get();
+
+        return view('login.Imoveis.edicao-fotos-imovel', compact('id', 'imagens'));
+    }
+
+    public function newUpload(Request $request, $id)
+    {
+
+        //De onde o arquivo vem e para onde ele vai.
+        $arquivo = $_FILES['fotos'];
+
+        $diretorio = "storage/images";
+
+        //Estrutura para rodar quantas vezes for conforme a quantidade de fotos.
+        for ($controle = 0; $controle < count($arquivo['name']); $controle++){
+
+            $nome = $diretorio . "/" . rand() . $arquivo['name'][$controle];
+
+            //Salvando as fotos.
+            $fotos = new ImovelFotos();
+
+            $fotos->id_anuncio = $id;
+            $fotos->foto_anuncio = $nome;
+            $fotos->nome_original = $arquivo['name'][$controle];
+            $fotos->save();
+
+            //Movendo as fotos.
+            $destino = $nome;
+
+            move_uploaded_file($arquivo['tmp_name'][$controle], $destino);
+        }
+
+
+        return redirect(route('update-fotos', $id))->with('msg', 'Imagem adicionada com sucesso!');
+    }
+
+    public function exclusaoEdicaoFotos($id)
+    {
+        $imagem = ImovelFotos::find($id);
+        $imagem->delete();
+
+        File::delete($imagem->foto_anuncio);
+
+        return redirect(route('update-fotos', $imagem->id_anuncio))->with('msg-2', 'Imagem deletada com sucesso!');
+    }
+
+
+    public function destroy($id)
+    {
+        $imovel = Imovel::find($id);
+        $imovel->delete();
+
+        $fotos = DB::table('imovel_fotos')->whereRaw('id_anuncio = ' . $imovel->id)->get();
+
+        foreach ($fotos as $foto){
+            ImovelFotos::destroy($foto->id);
+            File::delete($foto->foto_anuncio);
+        }
+
+        return redirect(route('gerenciamento-imoveis'))->with('msg-2', 'Anúncio deletado com sucesso!');
+    }
+
+    public function deletarTudo($id)
+    {
+        $fotos = DB::table('imovel_fotos')->whereRaw('id_anuncio = ' . $id)->get();
+
+        foreach ($fotos as $foto){
+            ImovelFotos::destroy($foto->id);
+            File::delete($foto->foto_anuncio);
+        }
+
+        return redirect(route('update-fotos', $id))->with('msg-3', 'Todas as imagens foram deletadas com sucesso!');
+    }
+
+    public function pesquisa(Request $request)
+    {
+
+        if($request->tipo_imovel == '' or $request->cidade == ''){
+
+            return redirect(route('gerenciamento-imoveis'));
+        }else {
+            $imoveis = DB::table('imovels')
+                ->where('tipo_imovel', '=', $request->tipo_imovel)
+                ->where('cidade', '=', $request->cidade)->get();
+
+            $ver = 1;
+            $verificacao = 2;
+
+            if (count($imoveis) == 0){
+                $valor = 0;
+            }else {
+                $valor =1;
+            }
+
+            return view('login.Imoveis.gerenciamento', compact('imoveis', 'ver', 'valor', 'verificacao'));
+        }
+    }
+}

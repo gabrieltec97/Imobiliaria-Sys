@@ -1,0 +1,9 @@
+$theme-colors: (
+    "front": #F25955,
+    "custom": #007BFF
+);
+
+@import "~bootstrap/scss/bootstrap";
+@import "header";
+@import "../../../node_modules/bootstrap-select/dist/css/bootstrap-select.min.css";
+
