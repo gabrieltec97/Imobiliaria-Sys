@@ -106,7 +106,7 @@
 
 
 
-            <form action="{{ route('negociar', $imovel->id) }}">
+            <form action="{{ route('negociar', $imovel->id) }}" method="post">
                 @csrf
                 @if($imovel->status == 'Disponível para aluguel')
                     <button class="btn btn-custom float-right mr-3 font-weight-bold"><i class="fas fa-edit mr-2"></i>Alugar Imóvel</button>

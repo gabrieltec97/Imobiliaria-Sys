@@ -92,7 +92,13 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('deletar-tudo/{id}', 'ImovelController@deletarTudo')->name('deletar-tudo');
 
-    Route::get('/negociar/{id}', 'ImovelController@negociar')->name('negociar');
+
+    //Rotas de negociação.
+    Route::post('/negociar/{id}', 'ImovelController@negociar')->name('negociar');
+
+    Route::post('/fechar-negocio/{id}', 'ImovelController@fecharNegocio')->name('fechar-negocio');
+
+    Route::get('/anexar-contrato/{id}', 'ImovelController@anexarContrato')->name('anexar-contrato');
 
 
 
@@ -107,6 +113,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     //Rota de Clientes.
     Route::resource('cliente', 'ClienteController');
+
+    Route::get('/pesquisar-cliente', 'ClienteController@busca')->name('pesquisar-cliente');
 
 
 

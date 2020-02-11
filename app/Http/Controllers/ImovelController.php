@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Cliente;
 use App\Imovel;
 use App\ImovelFotos;
 use App\NegociosFechados;
@@ -244,60 +245,27 @@ class ImovelController extends Controller
     public function negociar($id)
     {
         $imovel = Imovel::find($id);
+        $clientes = Cliente::all();
 
-        if ($imovel->status == 'Disponível para aluguel'){
+        return view('login.Imoveis.negociacao', compact('imovel', 'clientes'));
 
-            $imovel = Imovel::find($id);
-            $novoRegistro = new NegociosFechados();
+    }
 
-            $novoRegistro->id = $imovel->id;
-            $novoRegistro->nome = $imovel->nome;
-            $novoRegistro->cep = $imovel->cep;
-            $novoRegistro->endereco = $imovel->endereco;
-            $novoRegistro->cidade = $imovel->cidade;
-            $novoRegistro->estado = $imovel->estado;
-            $novoRegistro->tipo_imovel = $imovel->tipo_imovel;
-            $novoRegistro->qt_quartos = $imovel->qt_quartos;
-            $novoRegistro->qt_suites = $imovel->qt_suites;
-            $novoRegistro->vagas_garagem = $imovel->vagas_garagem;
-            $novoRegistro->tx_condominio = $imovel->tx_condominio;
-            $novoRegistro->tipo_negocio = $imovel->tipo_negocio;
-            $novoRegistro->valor = $imovel->valor;
-            $novoRegistro->status = 'Alugado';
-            $novoRegistro->descricao = $imovel->descricao;
-            $novoRegistro->save();
+    public function fecharNegocio(Request $request, $id)
+    {
+        $imovel = Imovel::find($id);
 
-            $imovel->delete();
+        $id_cliente = $request->cliente;
 
-            return redirect(route('negocios_fechados.index'))->with('msg', 'Imóvel negociado com sucesso!');
+        DB::table('clientes')->where('id', $id_cliente)
+            ->update(array('imovel_negociado' => $imovel->nome, 'negociado_em' => $request->negociado_em, 'status_pagamento' => 'Em dia'));
 
-        }
-        elseif($imovel->status == 'Disponível para venda'){
+        return redirect(route('anexar-contrato', $id_cliente));
+    }
 
-            $imovel = Imovel::find($id);
-            $novoRegistro = new NegociosFechados();
-
-            $novoRegistro->id = $imovel->id;
-            $novoRegistro->nome = $imovel->nome;
-            $novoRegistro->cep = $imovel->cep;
-            $novoRegistro->endereco = $imovel->endereco;
-            $novoRegistro->cidade = $imovel->cidade;
-            $novoRegistro->estado = $imovel->estado;
-            $novoRegistro->tipo_imovel = $imovel->tipo_imovel;
-            $novoRegistro->qt_quartos = $imovel->qt_quartos;
-            $novoRegistro->qt_suites = $imovel->qt_suites;
-            $novoRegistro->vagas_garagem = $imovel->vagas_garagem;
-            $novoRegistro->tx_condominio = $imovel->tx_condominio;
-            $novoRegistro->tipo_negocio = $imovel->tipo_negocio;
-            $novoRegistro->valor = $imovel->valor;
-            $novoRegistro->status = 'Vendido';
-            $novoRegistro->descricao = $imovel->descricao;
-            $novoRegistro->save();
-
-            $imovel->delete();
-
-            return redirect(route('negocios_fechados.index'))->with('msg', 'Imóvel negociado com sucesso!');
-        }
+    public function anexarContrato($id)
+    {
+        echo $id;
     }
 
 }

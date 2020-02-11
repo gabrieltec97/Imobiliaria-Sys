@@ -7,29 +7,32 @@
 @section('content')
     <div class="container conteudo_cad">
         <div class="col-12">
-            <h1 class="text-muted text-center mb-3">Dados do cliente</h1>
+            <h1 class="text-muted text-center mb-3">Edição de cadastro de cliente</h1>
         </div>
         <div class="card">
             <div class="card-body card-cad">
+                <form action="{{ route('cliente.update', $cliente->id) }}" method="post">
+                    @csrf
+                    @method('put')
                 <div class="row mt-4">
                     <div class="col-12 col-lg-6 col-xl-4 my-3">
                         <label class="text-muted"><b>Nome:</b></label>
-                        <input type="text" class="form-control w-100  font-weight-bold" name="nome"  value="{{ $cliente->nome }}" disabled>
+                        <input type="text" class="form-control w-100  font-weight-bold" name="nome"  value="{{ $cliente->nome }}">
                     </div>
 
                     <div class="col-12 col-lg-6 col-xl-4 my-3">
                         <label class="text-muted"><b>Endereço:</b></label>
-                        <input type="text" class="form-control w-100 font-weight-bold" name="endereco" disabled value="{{ $cliente->endereco }}" required>
+                        <input type="text" class="form-control w-100 font-weight-bold" name="endereco" value="{{ $cliente->endereco }}" required>
                     </div>
 
                     <div class="col-12 col-lg-6 col-xl-4 my-3">
                         <label class="text-muted"><b>Cidade </b><span class="text-danger">*</span></label>
-                        <input type="text" name="cidade" required class="form-control w-100 font-weight-bold" disabled value="{{ $cliente->cidade }}">
+                        <input type="text" name="cidade" required class="form-control w-100" value="{{ $cliente->cidade }}">
                     </div>
 
                     <div class="col-12 col-lg-6 col-xl-4 my-3">
                         <label class="text-muted"><b>Estado</b></label>
-                        <select class="selectpicker w-100" name="estado" required disabled title="Selecione">
+                        <select class="selectpicker w-100" name="estado" required title="Selecione">
                             <option value="AC" {{ ($cliente->estado == 'AC')?'selected':'' }}>Acre</option>
                             <option value="AL" {{ ($cliente->estado == 'AL')?'selected':'' }}>Alagoas</option>
                             <option value="AP" {{ ($cliente->estado == 'AP')?'selected':'' }}>Amapá</option>
@@ -62,60 +65,46 @@
 
                     <div class="col-12 col-lg-6 col-xl-4 my-3">
                         <label class="text-muted"><b>cep:</b></label>
-                        <input type="number" class="form-control w-100 font-weight-bold" name="cep" disabled value="{{ $cliente->cep }}" required>
+                        <input type="number" class="form-control w-100 font-weight-bold" name="cep" value="{{ $cliente->cep }}" required>
                     </div>
 
                     <div class="col-12 col-lg-6 col-xl-4 my-3">
                         <label class="text-muted"><b>telefone:</b></label>
-                        <input type="number" class="form-control w-100 font-weight-bold" name="telefone" disabled value="{{ $cliente->telefone }}" required>
+                        <input type="number" class="form-control w-100 font-weight-bold" name="telefone" value="{{ $cliente->telefone }}" required>
                     </div>
 
                     <div class="col-12 col-lg-6 my-3">
                         <label class="text-muted"><b>E-mail:</b></label>
-                        <input type="email" class="form-control w-100 font-weight-bold" name="email" value="{{ $cliente->email }}" disabled>
+                        <input type="email" class="form-control w-100 font-weight-bold" name="email" value="{{ $cliente->email }}">
                     </div>
 
                     <div class="col-12 col-lg-6 col-xl-4 my-3">
                         <label class="text-muted"><b>CPF:</b></label>
-                        <input type="number" class="form-control w-100 font-weight-bold" name="cpf" disabled value="{{ $cliente->cpf }}" required>
+                        <input type="number" class="form-control w-100 font-weight-bold" name="cpf" value="{{ $cliente->cpf }}" required>
                     </div>
 
                     <div class="col-12 col-lg-6 my-3">
                         <label class="text-muted"><b>Imóvel Negociado:</b></label>
-                        <input type="text" disabled class="form-control font-weight-bold" value="{{ $cliente->imovel_negociado }}">
+                        <select class="selectpicker w-100" title="Informe o cargo" name="imovel_negociado">
+
+                        </select>
                     </div>
 
                     <div class="col-12 col-lg-6 col-xl-4 my-3">
                         <label class="text-muted"><b>Negociado em </b></label>
-                        <input type="date" name="negociado_em" value="{{ $cliente->negociado_em }}" disabled class="form-control w-100 font-weight-bold">
-                    </div>
-
-                    <div class="col-12 col-lg-6 my-3">
-                        <label class="text-muted"><b>Status de pagamento:</b></label>
-                        <input type="text" disabled class="form-control font-weight-bold" value="{{ $cliente->status_pagamento }}">
+                        <input type="date" name="negociado_em" class="form-control w-100">
                     </div>
 
                     <div class="col-12 col-lg-12 col-xl-12 my-3">
                         <label class="text-muted"><b>Observações</b></label>
-                        <textarea name="observacoes" class="form-control font-weight-bold" disabled rows="5">{{ $cliente->observacoes }}</textarea>
+                        <textarea name="observacoes" class="form-control" rows="5"></textarea>
                     </div>
 
                     <div class="col-12 my-3">
-                        <div class="row">
-                            <div class="col-12 col-lg-4">
-                                <a href="{{ route('cliente.edit', $cliente->id) }}" class="btn btn-info text-white"><b><i class="fas fa-user-edit"></i> &nbsp;Editar Dados</b></a>
-                            </div>
-                            <div class="col-12 col-lg-8 mt-2 mt-lg-0">
-
-                                <form action="{{ route('cliente.destroy', $cliente->id) }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-danger float-right"><b><i class="fas fa-trash mr-2"></i>Excluir cadastro de cliente</b></button>
-                                </form>
-                            </div>
-                        </div>
+                        <button type="submit" class="btn btn-success text-white"><b><i class="fas fa-check-circle"></i> &nbsp;Salvar Alterações</b></button>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>
