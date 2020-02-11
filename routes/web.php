@@ -92,6 +92,22 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('deletar-tudo/{id}', 'ImovelController@deletarTudo')->name('deletar-tudo');
 
+    Route::get('/negociar/{id}', 'ImovelController@negociar')->name('negociar');
+
+
+
+    //Rota de Negócios Fechados
+    Route::get('/pesquisar', 'NegociosController@pesquisaNegocios')->name('pesquisar');
+
+    Route::resource('/negocios_fechados', 'NegociosController');
+
+    Route::get('/negocios_fechados/retornar/{id}', 'NegociosController@retornar')->name('negocios-retorno');
+
+
+
+    //Rota de Clientes.
+    Route::resource('cliente', 'ClienteController');
+
 
 
 

@@ -140,6 +140,21 @@
                             </select>
                         </div>
 
+                        <div class="col-12 col-lg-6 col-xl-4 my-3">
+                            <label class="text-muted"><b>Status</b></label>
+                            <select class="selectpicker w-100" required name="status"  title="Selecione">
+                                <option>Disponível para aluguel</option>
+                                <option>Disponível para venda</option>
+                                <option>Alugado</option>
+                                <option>Vendido</option>
+                            </select>
+                        </div>
+
+                        <div class="col-12 col-lg-6 col-xl-4 my-3">
+                            <label class="text-muted"><b>Valor</b></label>
+                            <input type="number" name="valor" required class="form-control w-100" >
+                        </div>
+
 
                         <div class="col-12 col-lg-12 col-xl-12 my-3">
                             <label class="text-muted"><b>Descrição do Imóvel</b></label>

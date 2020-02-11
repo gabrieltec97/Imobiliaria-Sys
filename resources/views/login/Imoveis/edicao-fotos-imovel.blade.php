@@ -116,12 +116,14 @@
                                        @endif
                                </div>
 
-                               <div class="col-12">
-                                   <form action="{{ route('deletar-tudo', $id) }}" method="post">
-                                       @csrf
-                                       <button class="btn btn-danger float-right"><i class="fas fa-exclamation-triangle mr-2"></i>Deletar todas as imagens</button>
-                                   </form>
-                               </div>
+                               @if(count($imagens) > 0)
+                                   <div class="col-12">
+                                       <form action="{{ route('deletar-tudo', $id) }}" method="post">
+                                           @csrf
+                                           <button class="btn btn-danger float-right"><i class="fas fa-exclamation-triangle mr-2"></i>Deletar todas as imagens</button>
+                                       </form>
+                                   </div>
+                                @endif
                            </div>
                        </div>
                    </div>

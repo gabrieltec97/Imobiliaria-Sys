@@ -78,6 +78,14 @@
                         <h6><b>Taxa de condomínio: </b>{{ $imovel->tx_condominio }}</h6>
                     </div>
 
+                    <div class="col-12 col-md-4 mb-2 mb-lg-0">
+                        <h6><b>Status </b>{{ $imovel->status }}</h6>
+                    </div>
+
+                    <div class="col-12 col-md-4 mb-2 mb-lg-0">
+                        <h6><b>Valor: </b>R$ {{ $imovel->valor }}</h6>
+                    </div>
+
                     <div class="col-12 mt-3 mb-5">
                         <h6><b>Descrição:</b> <br><br>{{ $imovel->descricao }}</h6>
                     </div>
@@ -91,14 +99,26 @@
 
         <div class="col-12 mt-3">
 
+            <form action="{{ route('imovel.edit', $imovel->id) }}">
+                @csrf
+                <button class="btn btn-info float-right"><i class="fas fa-edit mr-2"></i><b>Editar Anúncio</b></button>
+            </form>
+
+
+
+            <form action="{{ route('negociar', $imovel->id) }}">
+                @csrf
+                @if($imovel->status == 'Disponível para aluguel')
+                    <button class="btn btn-custom float-right mr-3 font-weight-bold"><i class="fas fa-edit mr-2"></i>Alugar Imóvel</button>
+                @elseif($imovel->status == 'Disponível para venda')
+                    <button class="btn btn-custom float-right mr-3 font-weight-bold"><i class="fas fa-edit mr-2"></i>Vender Imóvel</button>
+                @endif
+            </form>
+
             <form action="{{ route('imovel.destroy', $imovel->id) }}" method="post">
                 @csrf
                 @method('DELETE')
-                <button class="btn btn-danger float-right ml-3 mb-3 mb-md-0"><i class="fas fa-trash mr-2"></i>Excluir Anúncio</button>
-            </form>
-
-            <form action="{{ route('imovel.edit', $imovel->id) }}">
-            <button class="btn btn-custom float-right"><i class="fas fa-edit mr-2"></i>Editar Anúncio</button>
+                <button class="btn btn-danger mb-3 mb-md-0 font-weight-bold"><i class="fas fa-trash mr-2"></i>Excluir Anúncio</button>
             </form>
         </div>
     </div>

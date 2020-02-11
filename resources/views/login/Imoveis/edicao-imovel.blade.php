@@ -141,6 +141,21 @@
                             </select>
                         </div>
 
+                        <div class="col-12 col-lg-6 col-xl-4 my-3">
+                            <label class="text-muted"><b>Status</b></label>
+                            <select class="selectpicker w-100" required name="status"  title="Selecione">
+                                <option {{ ($imovel->status == 'Disponível para aluguel')?'selected':'' }}>Disponível para aluguel</option>
+                                <option {{ ($imovel->status == 'Disponível para venda')?'selected':'' }}>Disponível para venda</option>
+                                <option {{ ($imovel->status == 'Alugado')?'selected':'' }}>Alugado</option>
+                                <option {{ ($imovel->status == 'Vendido')?'selected':'' }}>Vendido</option>
+                            </select>
+                        </div>
+
+                        <div class="col-12 col-lg-6 col-xl-4 my-3">
+                            <label class="text-muted"><b>Valor</b></label>
+                            <input type="number" name="valor" required class="form-control w-100" value="{{ $imovel->valor }}">
+                        </div>
+
 
                         <div class="col-12 col-lg-12 col-xl-12 my-3">
                             <label class="text-muted"><b>Descrição do Imóvel</b></label>
@@ -148,7 +163,8 @@
                         </div>
 
                         <div class="col-12 my-3">
-                            <button type="submit" class="btn btn-info"><b>Próxima Etapa <i class="fas fa-arrow-right ml-1"></i></b></button>
+
+                            <button type="submit" class="btn btn-info"><b>Editar Imagens <i class="fas fa-arrow-right ml-1"></i></b></button>
                         </div>
 
                     </div>

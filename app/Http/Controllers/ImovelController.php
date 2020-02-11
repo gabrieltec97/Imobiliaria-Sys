@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Imovel;
 use App\ImovelFotos;
+use App\NegociosFechados;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -46,6 +47,8 @@ class ImovelController extends Controller
         $imovel->vagas_garagem = $request->vagas;
         $imovel->tx_condominio = $request->tx_cond;
         $imovel->tipo_negocio = $request->t_negocio;
+        $imovel->valor = $request->valor;
+        $imovel->status = $request->status;
         $imovel->descricao = $request->descricao;
         $imovel->save();
 
@@ -114,24 +117,27 @@ class ImovelController extends Controller
 
     public function update(Request $request, $id)
     {
-       $imovel = Imovel::find($id);
 
-       $imovel->nome = $request->nome ;
-       $imovel->cep = $request->cep ;
-       $imovel->endereco = $request->endereco ;
-       $imovel->cidade = $request->cidade ;
-       $imovel->estado = $request->estado ;
-       $imovel->tipo_imovel = $request->tipo_imovel ;
-       $imovel->qt_quartos = $request->qt_quartos ;
-       $imovel->qt_suites = $request->qt_suites ;
-       $imovel->vagas_garagem = $request->vagas_garagem ;
-       $imovel->tx_condominio = $request->tx_condominio ;
-       $imovel->tipo_negocio = $request->tipo_negocio ;
-       $imovel->descricao = $request->descricao ;
-       $imovel->save();
+            $imovel = Imovel::find($id);
 
-       return redirect(route('update-fotos', $id));
-    }
+            $imovel->nome = $request->nome ;
+            $imovel->cep = $request->cep ;
+            $imovel->endereco = $request->endereco ;
+            $imovel->cidade = $request->cidade ;
+            $imovel->estado = $request->estado ;
+            $imovel->tipo_imovel = $request->tipo_imovel ;
+            $imovel->qt_quartos = $request->qt_quartos ;
+            $imovel->qt_suites = $request->qt_suites ;
+            $imovel->vagas_garagem = $request->vagas_garagem ;
+            $imovel->tx_condominio = $request->tx_condominio ;
+            $imovel->tipo_negocio = $request->tipo_negocio ;
+            $imovel->valor = $request->valor ;
+            $imovel->status = $request->status ;
+            $imovel->descricao = $request->descricao ;
+            $imovel->save();
+
+            return redirect(route('update-fotos', $id));
+        }
 
     public function updateFotos($id)
     {
@@ -234,4 +240,64 @@ class ImovelController extends Controller
             return view('login.Imoveis.gerenciamento', compact('imoveis', 'ver', 'valor', 'verificacao'));
         }
     }
+
+    public function negociar($id)
+    {
+        $imovel = Imovel::find($id);
+
+        if ($imovel->status == 'Disponível para aluguel'){
+
+            $imovel = Imovel::find($id);
+            $novoRegistro = new NegociosFechados();
+
+            $novoRegistro->id = $imovel->id;
+            $novoRegistro->nome = $imovel->nome;
+            $novoRegistro->cep = $imovel->cep;
+            $novoRegistro->endereco = $imovel->endereco;
+            $novoRegistro->cidade = $imovel->cidade;
+            $novoRegistro->estado = $imovel->estado;
+            $novoRegistro->tipo_imovel = $imovel->tipo_imovel;
+            $novoRegistro->qt_quartos = $imovel->qt_quartos;
+            $novoRegistro->qt_suites = $imovel->qt_suites;
+            $novoRegistro->vagas_garagem = $imovel->vagas_garagem;
+            $novoRegistro->tx_condominio = $imovel->tx_condominio;
+            $novoRegistro->tipo_negocio = $imovel->tipo_negocio;
+            $novoRegistro->valor = $imovel->valor;
+            $novoRegistro->status = 'Alugado';
+            $novoRegistro->descricao = $imovel->descricao;
+            $novoRegistro->save();
+
+            $imovel->delete();
+
+            return redirect(route('negocios_fechados.index'))->with('msg', 'Imóvel negociado com sucesso!');
+
+        }
+        elseif($imovel->status == 'Disponível para venda'){
+
+            $imovel = Imovel::find($id);
+            $novoRegistro = new NegociosFechados();
+
+            $novoRegistro->id = $imovel->id;
+            $novoRegistro->nome = $imovel->nome;
+            $novoRegistro->cep = $imovel->cep;
+            $novoRegistro->endereco = $imovel->endereco;
+            $novoRegistro->cidade = $imovel->cidade;
+            $novoRegistro->estado = $imovel->estado;
+            $novoRegistro->tipo_imovel = $imovel->tipo_imovel;
+            $novoRegistro->qt_quartos = $imovel->qt_quartos;
+            $novoRegistro->qt_suites = $imovel->qt_suites;
+            $novoRegistro->vagas_garagem = $imovel->vagas_garagem;
+            $novoRegistro->tx_condominio = $imovel->tx_condominio;
+            $novoRegistro->tipo_negocio = $imovel->tipo_negocio;
+            $novoRegistro->valor = $imovel->valor;
+            $novoRegistro->status = 'Vendido';
+            $novoRegistro->descricao = $imovel->descricao;
+            $novoRegistro->save();
+
+            $imovel->delete();
+
+            return redirect(route('negocios_fechados.index'))->with('msg', 'Imóvel negociado com sucesso!');
+        }
+    }
+
 }

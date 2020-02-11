@@ -30,7 +30,7 @@
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user mr-3"></i><b>Usuários</b>
+                        <i class="fas fa-user-shield mr-3"></i><b>Usuários</b>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <hr>
@@ -43,7 +43,7 @@
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user-shield pr-3"></i><b>Funcionários</b>
+                        <i class="fas fa-user pr-3"></i><b>Funcionários</b>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <hr>
@@ -53,8 +53,22 @@
                         <hr>
                     </div>
                 </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user-friends pr-3"></i><b>Clientes</b>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <hr>
+                        <a class="dropdown-item text-dark pl-3 mr-5" href="{{ route('cliente.index') }}"><i class="far fa-address-card mr-2"></i> <b>Gerenciamento de Clientes</b></a>
+                        <hr>
+                        <a class="dropdown-item text-dark pl-3 mr-5" href="{{ route('cliente.create') }}"><i class="fas fa-user-plus mr-2"></i> <b>Novo Cliente</b></a>
+                        <hr>
+                    </div>
+                </li>
+
                 <li>
-                    <a href="{{ route('imovel.create') }}"><i class="fas fa-handshake mr-3"></i><b>Negócios Fechados</b></a>
+                    <a href="{{ route('negocios_fechados.index') }}"><i class="fas fa-handshake mr-3"></i><b>Negócios Fechados</b></a>
                 </li>
                 <li>
                     <a href="{{ route('imovel.create') }}"><i class="fas fa-book mr-3"></i><b>Cadastrar imóveis</b></a>
