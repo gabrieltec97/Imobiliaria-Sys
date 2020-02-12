@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Cliente;
+use App\Contratos;
 use App\Imovel;
 use App\Negocios_Clientes;
 use App\NegociosFechados;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class NegociosController extends Controller
 {
@@ -44,25 +47,27 @@ class NegociosController extends Controller
     }
 
 
-    public function store(Request $request)
-    {
-        //
-    }
-
 
     public function show($id)
     {
+        //Capturando dados para serem mostrados na view.
         $imovel = NegociosFechados::find($id);
-        $imagens = DB::table('imovel_fotos')->selectRaw('foto_anuncio')
-            ->whereRaw('id_anuncio = '. $id)->get();
+        $busca = DB::table('clientes')->select('nome')
+            ->where('id', '=', $imovel->cliente_responsavel)->get()->toArray();
 
-        return view('login.Negocios.imovel-alugado', compact('imovel', 'imagens'));
+        $cliente = array($busca[0]->nome, $imovel->cliente_responsavel);
+
+        $imagens = DB::table('imovel_fotos')->selectRaw('foto_anuncio')
+            ->whereRaw('id_anuncio = '. $imovel->imovel_negociado)->get();
+
+        return view('login.Negocios.imovel-alugado', compact('imovel', 'imagens', 'cliente'));
     }
 
 
 
     public function retornar(Request $request, $id)
     {
+
         $imovelNegocio = NegociosFechados::find($id);
 
         if ($imovelNegocio->status == 'Alugado'){
@@ -88,6 +93,16 @@ class NegociosController extends Controller
 
             $imovelNegocio->delete();
 
+            $arquivo = DB::table('contratos')->where('id_negocio', '=', $id)->get()->toArray();
+
+            foreach ($arquivo as $key => $value){
+                File::delete($value->foto_contrato);
+            }
+
+            DB::table('contratos')->where('id_negocio', '=', $id)->delete();
+
+            return redirect(route('negocios_fechados.index'))->with('msg-3', 'Negócio desfeito com sucesso!');
+
         }
         elseif($imovelNegocio->status == 'Vendido'){
 
@@ -111,9 +126,16 @@ class NegociosController extends Controller
 
             $imovelNegocio->delete();
 
-        }
+            $arquivo = DB::table('contratos')->where('id_negocio', '=', $id)->get()->toArray();
 
-//        $negocio = Negocios_Clientes::find()
+            foreach ($arquivo as $key => $value){
+                File::delete($value->foto_contrato);
+            }
+
+            DB::table('contratos')->where('id_negocio', '=', $id)->delete();
+
+            return redirect(route('negocios_fechados.index'))->with('msg-3', 'Negócio desfeito com sucesso!');
+        }
     }
 
 

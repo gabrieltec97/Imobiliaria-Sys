@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
-use App\NegociosFechados;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -64,7 +63,7 @@ class ClienteController extends Controller
 
     public function update(Request $request, $id)
     {
-        $cliente = new Cliente();
+        $cliente = Cliente::find($id);
 
         $cliente->nome = $request->nome;
         $cliente->endereco = $request->endereco;

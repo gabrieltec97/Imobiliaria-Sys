@@ -85,22 +85,24 @@
                             <h6><b>Valor: </b>R$ {{ $imovel->valor }}</h6>
                         </div>
 
-                        <div class="col-12 mt-3 mb-5">
+                        <div class="col-8 mb-2 mt-4 mb-lg-0">
+                            <h6><b>Responsável pelo imóvel: </b><a href="{{ route('cliente.show', $cliente[1]) }}" class="text-primary">{{ $cliente[0] }}</a></h6>
+                        </div>
+
+                        <div class="col-12 my-5">
                             <h6><b>Descrição:</b> <br><br>{{ $imovel->descricao }}</h6>
                         </div>
 
                         <div class="col-12 mt-3 mb-2">
                             @if($imovel->status == 'Alugado')
-                                <form action="{{ route('negocios-retorno', $imovel->id) }}" method="get">
-                                    @csrf
+
                                 <h6 class="text-danger">Este imóvel foi alugado. Caso ele esteja novamente disponível,
-                                    <a href="{{ route('negocios-retorno', $imovel->id) }}"><span class="text-primary">clique aqui</span></a> para colocá-lo novamente na listagem de imóveis disponíveis.</h6>
+                                    <a href="#"><span class="text-primary" data-toggle="modal" data-target="#exampleModal">clique aqui</span> para colocá-lo novamente na listagem de imóveis disponíveis.</h6>
 
                                 @elseif($imovel->status == 'Vendido')
 
                                 <h6 class="text-danger">Este imóvel foi vendido. Caso ele esteja novamente disponível,
                                     <a href="{{ route('negocios-retorno', $imovel->id) }}" type="submit"><span class="text-primary">clique aqui</span></a> para colocá-lo novamente na listagem de imóveis disponíveis.</h6>
-                                </form>
                             @endif
                         </div>
 
@@ -118,6 +120,41 @@
                     @method('DELETE')
                     <button class="btn btn-danger float-right ml-3 mb-3 mb-md-0"><i class="fas fa-trash mr-2"></i>Excluir Registro</button>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger" id="exampleModalLabel"><i class="text-danger fas fa-exclamation-circle mr-2"></i>ATENÇÃO!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @if($imovel->status == 'Alugado')
+                    <h6>Este imóvel foi alugado para <b>{{ $cliente[0] }}</b>. Ao colocá-lo disponível novamente, você
+                    estará desfazendo o negócio e também não poderá mais acessar o contrato pelo sistema. Tem certeza
+                        que deseja realizar esta operação?</h6>
+                    @elseif($imovel->status == 'Vendido')
+                    <h6>Este imóvel foi vendido para <b>{{ $cliente[0] }}</b>. Ao colocá-lo disponível novamente, você
+                    estará desfazendo o negócio e também não poderá mais acessar o contrato pelo sistema. Tem certeza
+                        que deseja realizar esta operação?</h6>
+                    @endif
+
+                    <form action="{{ route('negocios-retorno', $imovel->id) }}" method="get">
+                    @csrf
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger font-weight-bold">Sim, desfazer</button>
+                    <button type="button" class="btn btn-success font-weight-bold" data-dismiss="modal">Cancelar</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
