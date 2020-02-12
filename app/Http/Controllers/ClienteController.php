@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use App\NegociosFechados;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -37,10 +38,6 @@ class ClienteController extends Controller
         $cliente->telefone = $request->telefone;
         $cliente->email = $request->email;
         $cliente->cpf = $request->cpf;
-        $cliente->imovel_negociado = $request->imovel_negociado;
-        $cliente->negociado_em = $request->negociado_em;
-        $cliente->status_pagamento = $request->status_pagamento;
-        $cliente->observacoes = $request->observacoes;
         $cliente->save();
 
         return redirect(route('cliente.index'))->with('msg', 'Novo cliente cadastrado com sucesso!');
@@ -50,8 +47,10 @@ class ClienteController extends Controller
     public function show($id)
     {
         $cliente = Cliente::find($id);
+        $imoveis = DB::table('negocios_fechados')
+            ->where('cliente_responsavel', '=', $id)->get();
 
-        return view('login.Clientes.cliente', compact('cliente'));
+        return view('login.Clientes.cliente', compact('cliente', 'imoveis'));
     }
 
 
@@ -75,10 +74,6 @@ class ClienteController extends Controller
         $cliente->telefone = $request->telefone;
         $cliente->email = $request->email;
         $cliente->cpf = $request->cpf;
-        $cliente->imovel_negociado = $request->imovel_negociado;
-        $cliente->negociado_em = $request->negociado_em;
-        $cliente->status_pagamento = $request->status_pagamento;
-        $cliente->observacoes = $request->observacoes;
         $cliente->save();
 
         return redirect(route('cliente.index'))->with('msg-2', 'Dados cadastrais alterados com sucesso!');
@@ -115,3 +110,4 @@ class ClienteController extends Controller
         return view('login.Clientes.gerenciamento-clientes', compact('clientes', 'valor', 'verificacao'));
     }
 }
+

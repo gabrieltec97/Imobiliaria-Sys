@@ -80,25 +80,38 @@
                         <input type="number" class="form-control w-100 font-weight-bold" name="cpf" disabled value="{{ $cliente->cpf }}" required>
                     </div>
 
-                    <div class="col-12 col-lg-6 my-3">
-                        <label class="text-muted"><b>Imóvel Negociado:</b></label>
-                        <input type="text" disabled class="form-control font-weight-bold" value="{{ $cliente->imovel_negociado }}">
-                    </div>
+                    @if(count($imoveis) > 0)
+                    <table class="table table-striped my-5 table-hover table-responsive-lg">
+                        <thead class="border">
+                        <tr class="border">
+                            <th scope="col">Imóvel Negociado</th>
+                            <th scope="col">Negociado Em</th>
+                            <th scope="col">Status de Pagamento</th>
+                            <th scope="col">Observações</th>
 
-                    <div class="col-12 col-lg-6 col-xl-4 my-3">
-                        <label class="text-muted"><b>Negociado em </b></label>
-                        <input type="date" name="negociado_em" value="{{ $cliente->negociado_em }}" disabled class="form-control w-100 font-weight-bold">
-                    </div>
+                        </tr>
+                        </thead>
+                        <tbody class="border">
+                            @foreach($imoveis as $imovel)
+                                <tr>
+                                    <th class="text-muted font-weight-bold"><a href="{{ route('cliente.show', $imovel->id) }}">{{ $imovel->nome }}</a></th>
+                                    <td class="text-muted font-weight-bold"><a href="{{ route('cliente.show', $imovel->id) }}">{{ $imovel->negociado_em }}</a></td>
+                                    <td class="text-muted font-weight-bold"><a href="{{ route('cliente.show', $imovel->id) }}">{{ $imovel->status_pagamento }}</a></td>
 
-                    <div class="col-12 col-lg-6 my-3">
-                        <label class="text-muted"><b>Status de pagamento:</b></label>
-                        <input type="text" disabled class="form-control font-weight-bold" value="{{ $cliente->status_pagamento }}">
-                    </div>
-
-                    <div class="col-12 col-lg-12 col-xl-12 my-3">
-                        <label class="text-muted"><b>Observações</b></label>
-                        <textarea name="observacoes" class="form-control font-weight-bold" disabled rows="5">{{ $cliente->observacoes }}</textarea>
-                    </div>
+                                    @if($imovel->observacoes == '')
+                                        <td class="text-muted font-weight-bold"><a href="{{ route('cliente.show', $imovel->id) }}">Sem observações</a></td>
+                                    @else
+                                        <td class="text-muted font-weight-bold"><a href="{{ route('cliente.show', $imovel->id) }}">{{ $imovel->observacoes }}</a></td>
+                                    @endif
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    @else
+                        <div class="col-12 mt-5 mb-2">
+                            <h6 class="text-danger font-weight-bold">Este cliente ainda não negociou nenhum imóvel.</h6>
+                        </div>
+                    @endif
 
                     <div class="col-12 my-3">
                         <div class="row">

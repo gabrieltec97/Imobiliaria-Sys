@@ -71,23 +71,19 @@
                     <thead class="border">
                     <tr class="border">
                         <th scope="col">Nome</th>
+                        <th scope="col">Cidade</th>
                         <th scope="col">Telefone</th>
                         <th scope="col">E-mail</th>
-                        <th scope="col">Imóvel Negociado</th>
+
                     </tr>
                     </thead>
                     <tbody class="border">
                     @foreach($clientes as $cliente)
                         <tr>
                             <th class="text-muted font-weight-bold"><a href="{{ route('cliente.show', $cliente->id) }}">{{ $cliente->nome }}</a></th>
+                            <td class="text-muted font-weight-bold"><a href="{{ route('cliente.show', $cliente->id) }}">{{ $cliente->cidade }}</a></td>
                             <td class="text-muted font-weight-bold"><a href="{{ route('cliente.show', $cliente->id) }}">{{ $cliente->telefone }}</a></td>
                             <td class="text-muted font-weight-bold"><a href="{{ route('cliente.show', $cliente->id) }}">{{ $cliente->email }}</a></td>
-
-                            @if($cliente->imovel_negociado == null)
-                            <th class="text-muted font-weight-bold">Este cliente ainda não possui nenhum imóvel</th>
-                            @else
-                               <td class="text-muted font-weight-bold"><a href="{{ route('imovel.show', $cliente->id) }}">{{ $cliente->imovel_negociado }}</a></td>
-                            @endif
                         </tr>
                     @endforeach
                     </tbody>

@@ -15,6 +15,11 @@ class CreateNegociosFechadosTable extends Migration
     {
         Schema::create('negocios_fechados', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->double('cliente_responsavel');
+            $table->string('imovel_negociado');
+            $table->string('negociado_em');
+            $table->string('status_pagamento');
+            $table->string('observacoes')->nullable();
             $table->string('nome');
             $table->string('endereco');
             $table->string('cep');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Imovel;
+use App\Negocios_Clientes;
 use App\NegociosFechados;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -87,7 +88,6 @@ class NegociosController extends Controller
 
             $imovelNegocio->delete();
 
-            return redirect(route('negocios_fechados.index'))->with('msg-2', 'Imóvel disponível novamente em Gerenciamento de Imóveis');
         }
         elseif($imovelNegocio->status == 'Vendido'){
 
@@ -111,8 +111,9 @@ class NegociosController extends Controller
 
             $imovelNegocio->delete();
 
-            return redirect(route('negocios_fechados.index'))->with('msg-2', 'Imóvel disponível novamente em Gerenciamento de Imóveis');
         }
+
+//        $negocio = Negocios_Clientes::find()
     }
 
 

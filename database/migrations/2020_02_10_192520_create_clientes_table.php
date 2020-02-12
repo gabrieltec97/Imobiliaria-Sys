@@ -23,10 +23,6 @@ class CreateClientesTable extends Migration
             $table->double('cep');
             $table->string('email')->nullable();
             $table->double('cpf')->unique();
-            $table->string('imovel_negociado')->nullable();
-            $table->string('negociado_em')->nullable();
-            $table->string('status_pagamento')->nullable();
-            $table->string('observacoes')->nullable();
             $table->timestamps();
         });
     }

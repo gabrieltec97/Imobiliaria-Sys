@@ -100,6 +100,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/anexar-contrato/{id}', 'ImovelController@anexarContrato')->name('anexar-contrato');
 
+    Route::post('/upload-contrato/{id}', 'ImovelController@uploadContrato')->name('upload-contrato');
+
 
 
     //Rota de Negócios Fechados
@@ -131,6 +133,6 @@ Route::group(['middleware' => ['auth']], function () {
 
 Route::get('/save', 'UserController@salvar');
 
-Route::get('/teste2333', function (){
-   return view('login.Imoveis.edicao-fotos-imovel');
+Route::get('/teste', function (){
+   return view('login.Imoveis.contrato');
 });

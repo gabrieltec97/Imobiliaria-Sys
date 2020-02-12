@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use App\Contratos;
 use App\Imovel;
 use App\ImovelFotos;
 use App\NegociosFechados;
@@ -255,17 +256,104 @@ class ImovelController extends Controller
     {
         $imovel = Imovel::find($id);
 
-        $id_cliente = $request->cliente;
 
-        DB::table('clientes')->where('id', $id_cliente)
-            ->update(array('imovel_negociado' => $imovel->nome, 'negociado_em' => $request->negociado_em, 'status_pagamento' => 'Em dia'));
+        /*Movendo o imóvel para negócios fechados e informando o imóvel
+        que está sendo negociado, status e observações.*/
+        if ($imovel->status == 'Disponível para aluguel'){
 
-        return redirect(route('anexar-contrato', $id_cliente));
+            $imovel = Imovel::find($id);
+            $novoRegistro = new NegociosFechados();
+
+            $novoRegistro->cliente_responsavel = $request->cliente;
+            $novoRegistro->imovel_negociado = $imovel->id;
+            $novoRegistro->negociado_em = $request->negociado_em;
+            $novoRegistro->status_pagamento = 'Em dia';
+            $novoRegistro->observacoes = '';
+            $novoRegistro->nome = $imovel->nome;
+            $novoRegistro->cep = $imovel->cep;
+            $novoRegistro->endereco = $imovel->endereco;
+            $novoRegistro->cidade = $imovel->cidade;
+            $novoRegistro->estado = $imovel->estado;
+            $novoRegistro->tipo_imovel = $imovel->tipo_imovel;
+            $novoRegistro->qt_quartos = $imovel->qt_quartos;
+            $novoRegistro->qt_suites = $imovel->qt_suites;
+            $novoRegistro->vagas_garagem = $imovel->vagas_garagem;
+            $novoRegistro->tx_condominio = $imovel->tx_condominio;
+            $novoRegistro->tipo_negocio = $imovel->tipo_negocio;
+            $novoRegistro->valor = $imovel->valor;
+            $novoRegistro->status = 'Alugado';
+            $novoRegistro->descricao = $imovel->descricao;
+            $novoRegistro->save();
+
+            $imovel->delete();
+
+        }
+        elseif($imovel->status == 'Disponível para venda'){
+
+            $imovel = Imovel::find($id);
+            $novoRegistro = new NegociosFechados();
+
+            $novoRegistro->cliente_responsavel = $request->cliente;
+            $novoRegistro->imovel_negociado = $imovel->id;
+            $novoRegistro->negociado_em = $request->negociado_em;
+            $novoRegistro->status_pagamento = 'Em dia';
+            $novoRegistro->observacoes = '';
+            $novoRegistro->id = $imovel->id;
+            $novoRegistro->nome = $imovel->nome;
+            $novoRegistro->cep = $imovel->cep;
+            $novoRegistro->endereco = $imovel->endereco;
+            $novoRegistro->cidade = $imovel->cidade;
+            $novoRegistro->estado = $imovel->estado;
+            $novoRegistro->tipo_imovel = $imovel->tipo_imovel;
+            $novoRegistro->qt_quartos = $imovel->qt_quartos;
+            $novoRegistro->qt_suites = $imovel->qt_suites;
+            $novoRegistro->vagas_garagem = $imovel->vagas_garagem;
+            $novoRegistro->tx_condominio = $imovel->tx_condominio;
+            $novoRegistro->tipo_negocio = $imovel->tipo_negocio;
+            $novoRegistro->valor = $imovel->valor;
+            $novoRegistro->status = 'Vendido';
+            $novoRegistro->descricao = $imovel->descricao;
+            $novoRegistro->save();
+
+            $imovel->delete();
+        }
+
+
+        return redirect(route('anexar-contrato', $novoRegistro->id));
     }
 
     public function anexarContrato($id)
     {
-        echo $id;
+        return view('login.Imoveis.contrato', compact('id'));
+    }
+
+    public function uploadContrato($id)
+    {
+        //De onde o arquivo vem e para onde ele vai.
+        $arquivo = $_FILES['contratos'];
+
+        $diretorio = "storage/contratos";
+
+        //Estrutura para rodar quantas vezes for conforme a quantidade de fotos.
+        for ($controle = 0; $controle < count($arquivo['name']); $controle++){
+
+            $nome = $diretorio . "/" . rand() . $arquivo['name'][$controle];
+
+            //Salvando as fotos.
+            $fotos = new Contratos();
+
+            $fotos->id_negocio = $id;
+            $fotos->foto_contrato = $nome;
+            $fotos->nome_original_foto_contrato = $arquivo['name'][$controle];
+            $fotos->save();
+
+            //Movendo as fotos.
+            $destino = $nome;
+
+            move_uploaded_file($arquivo['tmp_name'][$controle], $destino);
+        }
+
+        return redirect(route('negocios_fechados.index'))->with('msg', 'Negócio fechado com sucesso!');
     }
 
 }

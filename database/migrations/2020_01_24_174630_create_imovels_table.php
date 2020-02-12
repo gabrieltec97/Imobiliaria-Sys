@@ -15,20 +15,20 @@ class CreateImovelsTable extends Migration
     {
         Schema::create('imovels', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nome');
-            $table->string('endereco');
-            $table->string('cep');
-            $table->string('cidade');
-            $table->string('estado');
-            $table->string('tipo_imovel');
-            $table->string('qt_quartos');
-            $table->string('qt_suites');
-            $table->string('vagas_garagem');
-            $table->string('tx_condominio');
-            $table->double('valor');
-            $table->string('status');
-            $table->string('tipo_negocio');
-            $table->longText('descricao');
+            $table->string('nome')->nullable();
+            $table->string('endereco')->nullable();
+            $table->string('cep')->nullable();
+            $table->string('cidade')->nullable();
+            $table->string('estado')->nullable();
+            $table->string('tipo_imovel')->nullable();
+            $table->string('qt_quartos')->nullable();
+            $table->string('qt_suites')->nullable();
+            $table->string('vagas_garagem')->nullable();
+            $table->string('tx_condominio')->nullable();
+            $table->double('valor')->nullable();
+            $table->string('status')->nullable();
+            $table->string('tipo_negocio')->nullable();
+            $table->longText('descricao')->nullable();
             $table->timestamps();
         });
     }
