@@ -49,11 +49,15 @@
     </div>
 
     <div class="container conteudo_cad">
-{{--        <form id="form" action="{{ route('negociar') }}" method="post" enctype="multipart/form-data">--}}
+        <form id="form" action="{{ route('negociar-cadastrar', $imovel->id) }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="card">
                 <div class="card-body card-cad">
                     <div class="row">
+                        <div class="col-12">
+                            <h6 class="text-muted font-weight-bold">Caso ainda não esteja cadastrado, basta preencher o
+                                formulário abaixo que o negócio será feito e o cliente será cadastrado automaticamente.</h6>
+                        </div>
                         <div class="col-12 col-lg-6 col-xl-4 my-3">
                             <label class="text-muted"><b>Nome </b><span class="text-danger">*</span></label>
                             <input type="text" name="nome" class="form-control w-100" required  placeholder="Ex: Apartamento em Brasília.">
@@ -124,31 +128,32 @@
                         </div>
 
                         <div class="col-12 col-lg-6 col-xl-4 my-3">
-                            <label class="text-muted"><b>Imóvel Negociado </b></label>
-                            <input type="text" name="imovel_negociado" disabled value="{{ $imovel->nome }}" class="form-control w-100">
+                            <label class="text-muted font-weight-bold">Imóvel  </label><span class="text-danger"> *</span>
+                            <input type="text" class="form-control" name="nome" value="{{ $imovel->nome }}" disabled>
                         </div>
 
                         <div class="col-12 col-lg-6 col-xl-4 my-3">
-                            <label class="text-muted"><b>Negociado em </b></label>
+                            <label class="text-muted"><b>Negociado em </b><span class="text-danger">*</span></label>
                             <input type="date" name="negociado_em" class="form-control w-100">
                         </div>
 
                         <div class="col-12 col-lg-6 col-xl-4 my-3">
-                            <label class="text-muted"><b>Status de pagamento</b></label>
-                            <select class="selectpicker w-100" name="status_pagamento"  title="Selecione">
-                                <option>Em dia</option>
+                            <label class="text-muted"><b>Status de pagamento </b><span class="text-danger">*</span></label>
+                            <select name="status_pagamento" class="selectpicker w-100" title="Escolha..">
                                 <option>Pago</option>
-                                <option>Com dívida</option>
+                                <option>Aguardando pagamento</option>
+                                <option>Mensalidades em dia</option>
+                                <option>Atrasado</option>
                             </select>
                         </div>
 
-                        <div class="col-12 col-lg-12 col-xl-12 my-3">
+                        <div class="col-12 my-3">
                             <label class="text-muted"><b>Observações</b></label>
                             <textarea name="observacoes" class="form-control" rows="5"></textarea>
                         </div>
 
                         <div class="col-12 my-3">
-                            <button type="submit" class="btn btn-info float-right"><b><i class="fas fa-user-plus mr-2"></i>Cadastrar Cliente</b></button>
+                            <button type="submit" class="btn btn-info float-right"><b>Próxima Etapa<i class="fas fa-arrow-right ml-2"></i></b></button>
                         </div>
 
                     </div>

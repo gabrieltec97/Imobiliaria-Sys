@@ -357,3 +357,6 @@ class ImovelController extends Controller
     }
 
 }
+
+/*O método de desfazer contrato e cadastrar novo cliente no processo de fechamento de negócio ficou
+no NegócioController para evitar sobrecarga neste controlador.*/

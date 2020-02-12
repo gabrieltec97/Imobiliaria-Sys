@@ -102,6 +102,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('/upload-contrato/{id}', 'ImovelController@uploadContrato')->name('upload-contrato');
 
+    //Esta rota foi posta no NegocioController para evitar sobrecarga no ImovelController.
+    Route::post('/negociar-cadastrar/{id}', 'NegociosController@negociarCadastrar')->name('negociar-cadastrar');
+
 
 
     //Rota de Negócios Fechados

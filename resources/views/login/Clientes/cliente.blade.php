@@ -94,14 +94,14 @@
                         <tbody class="border">
                             @foreach($imoveis as $imovel)
                                 <tr>
-                                    <th class="text-muted font-weight-bold"><a href="{{ route('cliente.show', $imovel->id) }}">{{ $imovel->nome }}</a></th>
-                                    <td class="text-muted font-weight-bold"><a href="{{ route('cliente.show', $imovel->id) }}">{{ $imovel->negociado_em }}</a></td>
-                                    <td class="text-muted font-weight-bold"><a href="{{ route('cliente.show', $imovel->id) }}">{{ $imovel->status_pagamento }}</a></td>
+                                    <th class="text-muted font-weight-bold"><a href="{{ route('negocios_fechados.show', $imovel->id) }}">{{ $imovel->nome }}</a></th>
+                                    <td class="text-muted font-weight-bold"><a href="{{ route('negocios_fechados.show', $imovel->id) }}">{{ $imovel->negociado_em }}</a></td>
+                                    <td class="text-muted font-weight-bold"><a href="{{ route('negocios_fechados.show', $imovel->id) }}">{{ $imovel->status_pagamento }}</a></td>
 
                                     @if($imovel->observacoes == '')
-                                        <td class="text-muted font-weight-bold"><a href="{{ route('cliente.show', $imovel->id) }}">Sem observações</a></td>
+                                        <td class="text-muted font-weight-bold"><a href="{{ route('negocios_fechados.show', $imovel->id) }}">Sem observações</a></td>
                                     @else
-                                        <td class="text-muted font-weight-bold"><a href="{{ route('cliente.show', $imovel->id) }}">{{ $imovel->observacoes }}</a></td>
+                                        <td class="text-muted font-weight-bold"><a href="{{ route('negocios_fechados.show', $imovel->id) }}">{{ $imovel->observacoes }}</a></td>
                                     @endif
                                 </tr>
                             @endforeach
