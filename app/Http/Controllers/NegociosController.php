@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
-use App\Contratos;
 use App\Imovel;
 use App\Negocios_Clientes;
 use App\NegociosFechados;
@@ -47,20 +46,46 @@ class NegociosController extends Controller
     }
 
 
-
     public function show($id)
     {
         //Capturando dados para serem mostrados na view.
         $imovel = NegociosFechados::find($id);
-        $busca = DB::table('clientes')->select('nome')
-            ->where('id', '=', $imovel->cliente_responsavel)->get()->toArray();
-
-        $cliente = array($busca[0]->nome, $imovel->cliente_responsavel);
+        $cliente = Cliente::find($imovel->cliente_responsavel);
+        $contrato = DB::table('contratos')->select('foto_contrato')
+            ->where('id_negocio', '=', $id)->get()->toArray();
 
         $imagens = DB::table('imovel_fotos')->selectRaw('foto_anuncio')
             ->whereRaw('id_anuncio = '. $imovel->imovel_negociado)->get();
 
-        return view('login.Negocios.imovel-alugado', compact('imovel', 'imagens', 'cliente'));
+        return view('login.Negocios.imovel-alugado', compact('imovel', 'imagens', 'cliente', 'contrato'));
+    }
+
+    public function edit($id)
+    {
+        $negocio = NegociosFechados::find($id);
+
+        return view('login.Negocios.editar-negocio', compact('negocio'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $negocio = NegociosFechados::find($id);
+
+        $negocio->nome = $request->nome;
+        $negocio->endereco = $request->endereco;
+        $negocio->cep = $request->cep;
+        $negocio->cidade = $request->cidade;
+        $negocio->estado = $request->estado;
+        $negocio->tipo_imovel = $request->tipo_imovel;
+        $negocio->qt_quartos = $request->qt_quartos;
+        $negocio->qt_suites = $request->qt_suites;
+        $negocio->valor = $request->valor;
+        $negocio->status_pagamento = $request->status_pagamento;
+        $negocio->observacoes = $request->observacoes;
+        $negocio->descricao = $request->descricao;
+        $negocio->save();
+
+        return redirect(route('negocios_fechados.index'))->with('msg-4', 'Registro editado com sucesso!');
     }
 
 
@@ -74,7 +99,7 @@ class NegociosController extends Controller
 
             $imovel = new Imovel();
 
-            $imovel->id = $imovelNegocio->id;
+            $imovel->id = $imovelNegocio->imovel_negociado;
             $imovel->nome = $imovelNegocio->nome;
             $imovel->endereco = $imovelNegocio->endereco;
             $imovel->cep = $imovelNegocio->cep;
@@ -93,10 +118,6 @@ class NegociosController extends Controller
 
             $imovelNegocio->delete();
 
-            //Atualizando o id_anuncio para o id do imóvel.
-            DB::table('imovel_fotos')->where('id_anuncio', '=', $imovelNegocio->imovel_negociado)
-                ->update(['id_anuncio' => $imovel->id]);
-
             //Encontrando o contrato para deletá-lo do servidor.
             $arquivo = DB::table('contratos')->where('id_negocio', '=', $id)->get()->toArray();
 
@@ -107,7 +128,7 @@ class NegociosController extends Controller
             //Deletando o contrato do banco
             DB::table('contratos')->where('id_negocio', '=', $id)->delete();
 
-            return redirect(route('negocios_fechados.index'))->with('msg-3', 'Negócio desfeito com sucesso!');
+            return redirect(route('imovel.index'))->with('msg-4', 'Negócio desfeito com sucesso!');
 
         }
         elseif($imovelNegocio->status == 'Vendido'){
@@ -132,10 +153,6 @@ class NegociosController extends Controller
 
             $imovelNegocio->delete();
 
-            //Atualizando o id_anuncio para o id do imóvel.
-            DB::table('imovel_fotos')->where('id_anuncio', '=', $imovelNegocio->imovel_negociado)
-                ->update(['id_anuncio' => $imovel->id]);
-
             //Encontrando o contrato para deletá-lo do servidor.
             $arquivo = DB::table('contratos')->where('id_negocio', '=', $id)->get()->toArray();
 
@@ -146,7 +163,7 @@ class NegociosController extends Controller
             //Deletando o contrato do banco.
             DB::table('contratos')->where('id_negocio', '=', $id)->delete();
 
-            return redirect(route('negocios_fechados.index'))->with('msg-3', 'Negócio desfeito com sucesso!');
+            return redirect(route('imovel.index'))->with('msg-4', 'Negócio desfeito com sucesso!');
         }
     }
 
@@ -196,10 +213,6 @@ class NegociosController extends Controller
 
             $imovel->delete();
 
-            //Atualizando o id_anuncio para o id do novo negócio
-            DB::table('imovel_fotos')->where('id_anuncio', '=', $imovel->id)
-                ->update(['id_anuncio' => $novoRegistro->id]);
-
         }
         elseif($imovel->status == 'Disponível para venda'){
 
@@ -229,18 +242,23 @@ class NegociosController extends Controller
             $novoRegistro->save();
 
             $imovel->delete();
-
-            //Atualizando o id_anuncio para o id do novo negócio
-            DB::table('imovel_fotos')->where('id_anuncio', '=', $imovel->id)
-                ->update(['id_anuncio' => $novoRegistro->id]);
         }
 
         return redirect(route('anexar-contrato', $novoRegistro->id))->with('msg', 'Cliente cadastrado com sucesso!');
     }
 
 
-    public function destroy($id)
+    public function download($id)
     {
-        //
+        $contrato = DB::table('contratos')->select('foto_contrato')
+            ->where('id_negocio', '=', $id)->get()->toArray();
+
+        foreach ($contrato as $key => $value){
+            return response()->download($value->foto_contrato);
+        }
+
+        return redirect(route('negocios_fechados.show'));
     }
+
+
 }

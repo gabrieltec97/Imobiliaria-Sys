@@ -67,18 +67,29 @@
                     </div>
                 </li>
 
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-home pr-3"></i><b>Imóveis</b>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <hr>
+                        <a class="dropdown-item text-dark pl-3 mr-5" href="{{ route('gerenciamento-imoveis') }}"><i class="fas fa-tasks mr-3"></i><b>Gerenciamento de Imóveis</b></a>
+                        <hr>
+                        <a class="dropdown-item text-dark pl-3 mr-5" href="{{ route('imovel.create') }}"><i class="fas fa-book mr-3"></i><b>Cadastrar Imóveis</b></a>
+                        <hr>
+                        <a class="dropdown-item text-dark pl-3 mr-5" href="{{ route('buscar-imoveis') }}"><i class="fa fa-search mr-3"></i><b>Buscar Imóveis</b></a>
+                        <hr>
+                    </div>
+                </li>
+
                 <li>
                     <a href="{{ route('negocios_fechados.index') }}"><i class="fas fa-handshake mr-3"></i><b>Negócios Fechados</b></a>
                 </li>
+
                 <li>
-                    <a href="{{ route('imovel.create') }}"><i class="fas fa-book mr-3"></i><b>Cadastrar imóveis</b></a>
+                    <a href="#"><i class="fas fa-h-square mr-3"></i><b>Histórico de Negócios</b></a>
                 </li>
-                <li>
-                    <a href="{{ route('buscar-imoveis') }}"><i class="fa fa-search mr-3"></i><b>Buscar Imóveis</b></a>
-                </li>
-                <li>
-                    <a href="{{ route('gerenciamento-imoveis') }}"><i class="fas fa-tasks mr-3"></i><b>Gerenciamento de imóveis</b></a>
-                </li>
+
 
 
             </ul>

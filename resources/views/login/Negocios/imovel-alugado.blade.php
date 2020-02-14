@@ -21,7 +21,7 @@
             @endif
 
             <div class="col-12">
-                <h3 class="text-muted">{{ $imovel->nome }}</h3>
+                <h3 class="text-muted">{{ $imovel->nome }} {{ $imovel->status == 'Alugado' ? '(Alugado)' : '(Vendido)' }}</h3>
                 <hr>
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
@@ -74,7 +74,7 @@
                         </div>
 
                         <div class="col-12 col-md-4 mb-2 mb-lg-0">
-                            <h6><b>Taxa de condomínio: </b>{{ $imovel->tx_condominio }}</h6>
+                            <h6><b>Taxa de condomínio: </b>R$ {{ $imovel->tx_condominio }}</h6>
                         </div>
 
                         <div class="col-12 col-md-4 mb-2 mb-lg-0">
@@ -85,42 +85,65 @@
                             <h6><b>Valor: </b>R$ {{ $imovel->valor }}</h6>
                         </div>
 
-                        <div class="col-8 mb-2 mt-4 mb-lg-0">
-                            <h6><b>Responsável pelo imóvel: </b><a href="{{ route('cliente.show', $cliente[1]) }}" class="text-primary">{{ $cliente[0] }}</a></h6>
-                        </div>
+                        <table class="table table-striped my-5 table-hover table-responsive-lg">
+                            <thead class="border">
+                            <tr class="border">
+                                <th scope="col">Responsável pelo Imóvel</th>
+                                <th scope="col">Negociado Em</th>
+                                <th scope="col">Status de Pagamento</th>
+                                <th scope="col">Observações</th>
+                                <th scope="col">Negociado Por</th>
 
-                        <div class="col-12 my-5">
-                            <h6><b>Descrição:</b> <br><br>{{ $imovel->descricao }}</h6>
-                        </div>
+                            </tr>
+                            </thead>
+                            <tbody class="border">
+                                <tr>
+                                    <th class="text-muted font-weight-bold"><a href="{{ route('cliente.show', $cliente->id) }}">{{ $cliente->nome }}</a></th>
+                                    <td class="text-muted font-weight-bold"><a href="{{ route('negocios_fechados.show', $imovel->id) }}">{{ $imovel->negociado_em }}</a></td>
+                                    <td class="text-muted font-weight-bold"><a href="{{ route('negocios_fechados.show', $imovel->id) }}">
+                                            @if($imovel->status_pagamento == 'Atrasado')
+                                                <p class="text-danger">Atrasado</p>
+                                            @else
+                                                {{ $imovel->status_pagamento }}
+                                            @endif
+                                        </a></td>
 
-                        <div class="col-12 mt-3 mb-2">
-                            @if($imovel->status == 'Alugado')
+                                    @if($imovel->observacoes == '')
+                                        <td class="text-muted font-weight-bold"><a href="{{ route('negocios_fechados.show', $imovel->id) }}">Sem observações</a></td>
+                                    @else
+                                        <td class="text-muted font-weight-bold"><a href="{{ route('negocios_fechados.show', $imovel->id) }}">{{ $imovel->observacoes }}</a></td>
+                                    @endif
+                                    <td class="text-muted font-weight-bold">Vanessa Santos</td>
+                                </tr>
+                            </tbody>
+                        </table>
 
-                                <h6 class="text-danger">Este imóvel foi alugado. Caso ele esteja novamente disponível,
-                                    <a href="#"><span class="text-primary" data-toggle="modal" data-target="#exampleModal">clique aqui</span> para colocá-lo novamente na listagem de imóveis disponíveis.</h6>
+                        <div class="col-12">
 
-                                @elseif($imovel->status == 'Vendido')
 
-                                <h6 class="text-danger">Este imóvel foi vendido. Caso ele esteja novamente disponível,
-                                    <a href="{{ route('negocios-retorno', $imovel->id) }}" type="submit"><span class="text-primary">clique aqui</span></a> para colocá-lo novamente na listagem de imóveis disponíveis.</h6>
-                            @endif
+                            <h6 class="font-wheight-bold">Contrato do negócio</h6>
+                            <a href="{{ route('download', $imovel->id) }}">
+                                <img src="../../public/images/contrato.jpg" style="height: 100px">
+                            </a>
                         </div>
 
                         <div class="col-12">
-                            <p class=" mb-0" style="font-style: italic">Registrado em: &nbsp;{{ $imovel->created_at }}</p>
+                            <p class=" mb-0 text-right" style="font-style: italic">Registrado em: &nbsp;{{ $imovel->created_at }}</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-12 mt-3">
 
-                <form action="{{ route('negocios_fechados.destroy', $imovel->id) }}" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-danger float-right ml-3 mb-3 mb-md-0"><i class="fas fa-trash mr-2"></i>Excluir Registro</button>
-                </form>
+
+            <div class="col-6 mt-3">
+               <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-front text-white font-weight-bold">
+                        <i class="fas fa-user-minus mr-2"></i>Desfazer negócio</a>
             </div>
+
+                <div class="col-6 mt-3">
+                    <a href="{{ route('negocios_fechados.edit', $imovel->id) }}" class="btn btn-custom mb-3 text-white mb-md-0 float-right font-weight-bold"><i class="fas fa-edit mr-2"></i>Atualizar Registro</a>
+                </div>
         </div>
     </div>
 
@@ -129,7 +152,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-danger" id="exampleModalLabel"><i class="text-danger fas fa-exclamation-circle mr-2"></i>ATENÇÃO!</h5>
+                    <h5 class="modal-title text-danger" id="exampleModalLabel"><i class="text-front fas fa-exclamation-circle mr-2"></i>ATENÇÃO!</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -148,10 +171,9 @@
                     <form action="{{ route('negocios-retorno', $imovel->id) }}" method="get">
                     @csrf
 
-
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger font-weight-bold">Sim, desfazer</button>
+                    <button type="submit" class="btn btn-front font-weight-bold">Sim, desfazer</button>
                     <button type="button" class="btn btn-success font-weight-bold" data-dismiss="modal">Cancelar</button>
                     </form>
                 </div>

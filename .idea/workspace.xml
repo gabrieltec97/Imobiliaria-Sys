@@ -113,8 +113,13 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/images" />
     <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\Imobiliaria\public\images" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -149,7 +154,10 @@
       <workItem from="1581428729175" duration="5798000" />
       <workItem from="1581436770814" duration="15683000" />
       <workItem from="1581462485810" duration="4992000" />
-      <workItem from="1581517315599" duration="10848000" />
+      <workItem from="1581517315599" duration="11001000" />
+      <workItem from="1581535460220" duration="1261000" />
+      <workItem from="1581545755035" duration="3823000" />
+      <workItem from="1581691150652" duration="12800000" />
     </task>
     <servers />
   </component>

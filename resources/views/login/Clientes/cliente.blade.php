@@ -96,7 +96,13 @@
                                 <tr>
                                     <th class="text-muted font-weight-bold"><a href="{{ route('negocios_fechados.show', $imovel->id) }}">{{ $imovel->nome }}</a></th>
                                     <td class="text-muted font-weight-bold"><a href="{{ route('negocios_fechados.show', $imovel->id) }}">{{ $imovel->negociado_em }}</a></td>
-                                    <td class="text-muted font-weight-bold"><a href="{{ route('negocios_fechados.show', $imovel->id) }}">{{ $imovel->status_pagamento }}</a></td>
+                                    <td class="text-muted font-weight-bold"><a href="{{ route('negocios_fechados.show', $imovel->id) }}">
+                                            @if($imovel->status_pagamento == 'Atrasado')
+                                                <p class="text-danger">Atrasado</p>
+                                            @else
+                                                {{$imovel->status_pagamento}}
+                                            @endif
+                                        </a></td>
 
                                     @if($imovel->observacoes == '')
                                         <td class="text-muted font-weight-bold"><a href="{{ route('negocios_fechados.show', $imovel->id) }}">Sem observações</a></td>

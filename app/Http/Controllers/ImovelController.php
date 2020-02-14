@@ -58,7 +58,6 @@ class ImovelController extends Controller
     }
 
 
-
     public function capturarFotos(Request $request, $id)
     {
         $id = $request->id;
@@ -66,32 +65,35 @@ class ImovelController extends Controller
     }
 
 
-
     public function storeFotos(Request $request, $id)
     {
 
-        //De onde o arquivo vem e para onde ele vai.
-        $arquivo = $_FILES['fotos'];
+        if ($_FILES['fotos']['name'][0] == ''){
+            return redirect(route('gerenciamento-imoveis'))->with('msg', 'Imóvel cadastrado com sucesso, porém sem fotos!');
+        }else{
+            //De onde o arquivo vem e para onde ele vai.
+            $arquivo = $_FILES['fotos'];
 
-        $diretorio = "storage/images";
+            $diretorio = "storage/images";
 
-        //Estrutura para rodar quantas vezes for conforme a quantidade de fotos.
-        for ($controle = 0; $controle < count($arquivo['name']); $controle++){
+            //Estrutura para rodar quantas vezes for conforme a quantidade de fotos.
+            for ($controle = 0; $controle < count($arquivo['name']); $controle++){
 
-            $nome = $diretorio . "/" . rand() . $arquivo['name'][$controle];
+                $nome = $diretorio . "/" . rand() . $arquivo['name'][$controle];
 
-            //Salvando as fotos.
-            $fotos = new ImovelFotos();
+                //Salvando as fotos.
+                $fotos = new ImovelFotos();
 
-            $fotos->id_anuncio = $request->id;
-            $fotos->foto_anuncio = $nome;
-            $fotos->nome_original = $arquivo['name'][$controle];
-            $fotos->save();
+                $fotos->id_anuncio = $request->id;
+                $fotos->foto_anuncio = $nome;
+                $fotos->nome_original = $arquivo['name'][$controle];
+                $fotos->save();
 
-            //Movendo as fotos.
-            $destino = $nome;
+                //Movendo as fotos.
+                $destino = $nome;
 
-            move_uploaded_file($arquivo['tmp_name'][$controle], $destino);
+                move_uploaded_file($arquivo['tmp_name'][$controle], $destino);
+            }
         }
 
         return redirect(route('gerenciamento-imoveis'))->with('msg', 'Imóvel cadastrado com sucesso!');
@@ -256,7 +258,6 @@ class ImovelController extends Controller
     {
         $imovel = Imovel::find($id);
 
-
         /*Movendo o imóvel para negócios fechados e informando o imóvel
         que está sendo negociado, status e observações.*/
         if ($imovel->status == 'Disponível para aluguel'){
@@ -267,8 +268,8 @@ class ImovelController extends Controller
             $novoRegistro->cliente_responsavel = $request->cliente;
             $novoRegistro->imovel_negociado = $imovel->id;
             $novoRegistro->negociado_em = $request->negociado_em;
-            $novoRegistro->status_pagamento = 'Em dia';
-            $novoRegistro->observacoes = '';
+            $novoRegistro->status_pagamento = $request->status_pagamento;
+            $novoRegistro->observacoes = $request->observacoes;
             $novoRegistro->nome = $imovel->nome;
             $novoRegistro->cep = $imovel->cep;
             $novoRegistro->endereco = $imovel->endereco;
@@ -296,8 +297,8 @@ class ImovelController extends Controller
             $novoRegistro->cliente_responsavel = $request->cliente;
             $novoRegistro->imovel_negociado = $imovel->id;
             $novoRegistro->negociado_em = $request->negociado_em;
-            $novoRegistro->status_pagamento = 'Em dia';
-            $novoRegistro->observacoes = '';
+            $novoRegistro->status_pagamento = $request->status_pagamento;
+            $novoRegistro->observacoes = $request->observacoes;
             $novoRegistro->id = $imovel->id;
             $novoRegistro->nome = $imovel->nome;
             $novoRegistro->cep = $imovel->cep;

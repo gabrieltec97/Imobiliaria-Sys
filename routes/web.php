@@ -102,6 +102,12 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('/upload-contrato/{id}', 'ImovelController@uploadContrato')->name('upload-contrato');
 
+    Route::get('/cadastro-cliente-negociacao/{id}', function ($id){
+        $imovel = \App\Imovel::find($id);
+       return view('login.Imoveis.negociacao-sem-cadastro', compact('imovel'));
+    })->name('cadastro-cliente-negociacao');
+
+
     //Esta rota foi posta no NegocioController para evitar sobrecarga no ImovelController.
     Route::post('/negociar-cadastrar/{id}', 'NegociosController@negociarCadastrar')->name('negociar-cadastrar');
 
@@ -113,6 +119,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/negocios_fechados', 'NegociosController');
 
     Route::get('/negocios_fechados/retornar/{id}', 'NegociosController@retornar')->name('negocios-retorno');
+
+    Route::get('/download/{id}', 'NegociosController@download')->name('download');
 
 
 
