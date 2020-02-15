@@ -124,6 +124,12 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 
+    //Rota de Histórico
+    Route::resource('historico', 'HistoricoController');
+
+
+
+
     //Rota de Clientes.
     Route::resource('cliente', 'ClienteController');
 

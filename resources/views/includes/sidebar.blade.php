@@ -119,7 +119,6 @@
                 <a href="{{ route('logout') }}"><button class="btn btn-front w-100"><b>Sair</b></button></a>
             </div>
 
-
         </div>
     </nav>
 

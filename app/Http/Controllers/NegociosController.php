@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use App\Historico;
 use App\Imovel;
 use App\Negocios_Clientes;
 use App\NegociosFechados;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
@@ -92,7 +94,6 @@ class NegociosController extends Controller
 
     public function retornar(Request $request, $id)
     {
-
         $imovelNegocio = NegociosFechados::find($id);
 
         if ($imovelNegocio->status == 'Alugado'){
@@ -127,6 +128,10 @@ class NegociosController extends Controller
 
             //Deletando o contrato do banco
             DB::table('contratos')->where('id_negocio', '=', $id)->delete();
+
+            //Atualizando o histórico
+            DB::table('historicos')->where('imovel_negociado', '=', $imovelNegocio->imovel_negociado)
+                ->update(['status' => 'Negócio Encerrado', 'status' => 'Encerrado', 'motivo_encerramento' => $request->cancelamento]);
 
             return redirect(route('imovel.index'))->with('msg-4', 'Negócio desfeito com sucesso!');
 
@@ -169,6 +174,11 @@ class NegociosController extends Controller
 
     public function negociarCadastrar(Request $request, $id)
     {
+
+        $nome = Auth::user()->name;
+        $sobrenome = Auth::user()->surname;
+        $nomeCompleto = $nome . ' ' . $sobrenome;
+
         $cliente = new Cliente();
 
         $cliente->nome = $request->nome;
@@ -183,6 +193,7 @@ class NegociosController extends Controller
 
         $imovel = Imovel::find($id);
 
+
         /*Movendo o imóvel para negócios fechados e informando o imóvel
         que está sendo negociado, status e observações.*/
         if ($imovel->status == 'Disponível para aluguel'){
@@ -193,6 +204,7 @@ class NegociosController extends Controller
             $novoRegistro->cliente_responsavel = $cliente->id;
             $novoRegistro->imovel_negociado = $id;
             $novoRegistro->negociado_em = $request->negociado_em;
+            $novoRegistro->negociado_por = $nomeCompleto;
             $novoRegistro->status_pagamento = $request->status_pagamento;
             $novoRegistro->observacoes = '';
             $novoRegistro->nome = $imovel->nome;
@@ -209,9 +221,21 @@ class NegociosController extends Controller
             $novoRegistro->valor = $imovel->valor;
             $novoRegistro->status = 'Alugado';
             $novoRegistro->descricao = $imovel->descricao;
+            $novoRegistro->descricao = $imovel->descricao;
             $novoRegistro->save();
 
             $imovel->delete();
+
+            //Inserindo este novo cadastro no histórico.
+            $historico = new Historico();
+
+            $historico->cliente_responsavel = $cliente->id;
+            $historico->imovel_negociado = $id;
+            $historico->negociado_em = $request->negociado_em;
+            $historico->negociado_por = $nomeCompleto;
+            $historico->status_pagamento = $request->status_pagamento;
+            $historico->observacoes = '';
+            $historico->save();
 
         }
         elseif($imovel->status == 'Disponível para venda'){
@@ -222,6 +246,7 @@ class NegociosController extends Controller
             $novoRegistro->cliente_responsavel = $request->cliente;
             $novoRegistro->imovel_negociado = $imovel->id;
             $novoRegistro->negociado_em = $request->negociado_em;
+            $novoRegistro->negociado_por = $nomeCompleto;
             $novoRegistro->status_pagamento = 'Em dia';
             $novoRegistro->observacoes = '';
             $novoRegistro->id = $imovel->id;
@@ -242,6 +267,17 @@ class NegociosController extends Controller
             $novoRegistro->save();
 
             $imovel->delete();
+
+            //Inserindo este novo cadastro no histórico.
+            $historico = new Historico();
+
+            $historico->cliente_responsavel = $cliente->id;
+            $historico->imovel_negociado = $id;
+            $historico->negociado_em = $request->negociado_em;
+            $historico->negociado_por = $nomeCompleto;
+            $historico->status_pagamento = $request->status_pagamento;
+            $historico->observacoes = '';
+            $historico->save();
         }
 
         return redirect(route('anexar-contrato', $novoRegistro->id))->with('msg', 'Cliente cadastrado com sucesso!');

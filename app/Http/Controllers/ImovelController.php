@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Cliente;
 use App\Contratos;
+use App\Historico;
 use App\Imovel;
 use App\ImovelFotos;
 use App\NegociosFechados;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
@@ -257,6 +259,9 @@ class ImovelController extends Controller
     public function fecharNegocio(Request $request, $id)
     {
         $imovel = Imovel::find($id);
+        $nome = Auth::user()->name;
+        $sobrenome = Auth::user()->surname;
+        $nomeCompleto = $nome . ' ' . $sobrenome;
 
         /*Movendo o imóvel para negócios fechados e informando o imóvel
         que está sendo negociado, status e observações.*/
@@ -268,6 +273,7 @@ class ImovelController extends Controller
             $novoRegistro->cliente_responsavel = $request->cliente;
             $novoRegistro->imovel_negociado = $imovel->id;
             $novoRegistro->negociado_em = $request->negociado_em;
+            $novoRegistro->negociado_por = $nomeCompleto;
             $novoRegistro->status_pagamento = $request->status_pagamento;
             $novoRegistro->observacoes = $request->observacoes;
             $novoRegistro->nome = $imovel->nome;
@@ -288,6 +294,17 @@ class ImovelController extends Controller
 
             $imovel->delete();
 
+            //Inserindo este novo cadastro no histórico.
+            $historico = new Historico();
+
+            $historico->cliente_responsavel = $request->cliente;
+            $historico->imovel_negociado = $imovel->id;
+            $historico->negociado_em = $request->negociado_em;
+            $historico->negociado_por = $nomeCompleto;
+            $historico->status_pagamento = $request->status_pagamento;
+            $historico->observacoes = $request->observacoes;
+            $historico->save();
+
         }
         elseif($imovel->status == 'Disponível para venda'){
 
@@ -297,6 +314,7 @@ class ImovelController extends Controller
             $novoRegistro->cliente_responsavel = $request->cliente;
             $novoRegistro->imovel_negociado = $imovel->id;
             $novoRegistro->negociado_em = $request->negociado_em;
+            $novoRegistro->negociado_por = $nomeCompleto;
             $novoRegistro->status_pagamento = $request->status_pagamento;
             $novoRegistro->observacoes = $request->observacoes;
             $novoRegistro->id = $imovel->id;
@@ -317,8 +335,18 @@ class ImovelController extends Controller
             $novoRegistro->save();
 
             $imovel->delete();
-        }
 
+            //Inserindo este novo cadastro no histórico.
+            $historico = new Historico();
+
+            $historico->cliente_responsavel = $request->cliente;
+            $historico->imovel_negociado = $imovel->id;
+            $historico->negociado_em = $request->negociado_em;
+            $historico->negociado_por = $nomeCompleto;
+            $historico->status_pagamento = $request->status_pagamento;
+            $historico->observacoes = $request->observacoes;
+            $historico->save();
+        }
 
         return redirect(route('anexar-contrato', $novoRegistro->id));
     }

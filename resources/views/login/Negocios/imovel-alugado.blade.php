@@ -113,7 +113,7 @@
                                     @else
                                         <td class="text-muted font-weight-bold"><a href="{{ route('negocios_fechados.show', $imovel->id) }}">{{ $imovel->observacoes }}</a></td>
                                     @endif
-                                    <td class="text-muted font-weight-bold">Vanessa Santos</td>
+                                    <td class="text-muted font-weight-bold">{{ $imovel->negociado_por }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -159,21 +159,46 @@
                 </div>
                 <div class="modal-body">
                     @if($imovel->status == 'Alugado')
-                    <h6>Este imóvel foi alugado para <b>{{ $cliente[0] }}</b>. Ao colocá-lo disponível novamente, você
+                    <h6>Este imóvel foi alugado para <b>{{ $cliente->nome }}</b>. Ao colocá-lo disponível novamente, você
                     estará desfazendo o negócio e também não poderá mais acessar o contrato pelo sistema. Tem certeza
                         que deseja realizar esta operação?</h6>
                     @elseif($imovel->status == 'Vendido')
-                    <h6>Este imóvel foi vendido para <b>{{ $cliente[0] }}</b>. Ao colocá-lo disponível novamente, você
+                    <h6>Este imóvel foi vendido para <b>{{ $cliente->nome }}</b>. Ao colocá-lo disponível novamente, você
                     estará desfazendo o negócio e também não poderá mais acessar o contrato pelo sistema. Tem certeza
                         que deseja realizar esta operação?</h6>
                     @endif
 
-                    <form action="{{ route('negocios-retorno', $imovel->id) }}" method="get">
-                    @csrf
-
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-front font-weight-bold">Sim, desfazer</button>
+                    <button type="button" class="btn btn-front font-weight-bold" data-toggle="modal" data-target="#exampleModal2" data-dismiss="modal">Sim, desfazer</button>
+                    <button type="button" class="btn btn-success font-weight-bold" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger" id="exampleModalLabel">Motivo do cancelamento</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('negocios-retorno', $imovel->id) }}" method="get">
+                        @csrf
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="text-muted font-weight-bold">Informe o motivo do cancelamento do negócio:</label>
+                                <textarea name="cancelamento" rows="5" class="form-control"></textarea>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-front font-weight-bold">Encerrar Negócio</button>
                     <button type="button" class="btn btn-success font-weight-bold" data-dismiss="modal">Cancelar</button>
                     </form>
                 </div>
