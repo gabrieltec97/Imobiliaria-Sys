@@ -38,7 +38,7 @@
                             </div>
 
                             <div class="col-12 mt-4">
-                                <p class="text-center"><button class="btn btn-info w-50 text-center">Entrar</button></p>
+                                <p class="text-center"><button class="btn btn-info w-50 text-center font-weight-bold">Entrar</button></p>
                             </div>
                         </div>
                     </form>

@@ -117,6 +117,9 @@
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\Imobiliaria\resources\views\login" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\Imobiliaria\public\images" />
     </key>
@@ -158,7 +161,10 @@
       <workItem from="1581535460220" duration="1261000" />
       <workItem from="1581545755035" duration="3823000" />
       <workItem from="1581691150652" duration="12800000" />
-      <workItem from="1581719202851" duration="6168000" />
+      <workItem from="1581719202851" duration="6505000" />
+      <workItem from="1581799370955" duration="74000" />
+      <workItem from="1581799567044" duration="6720000" />
+      <workItem from="1581867532064" duration="3266000" />
     </task>
     <servers />
   </component>

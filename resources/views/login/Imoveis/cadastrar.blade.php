@@ -18,27 +18,27 @@
                     <div class="row">
                         <div class="col-12 col-lg-6 col-xl-4 my-3">
                             <label class="text-muted"><b>Título do Anúncio</b></label>
-                            <input type="text" name="nome" class="form-control w-100" required  placeholder="Ex: Apartamento em Brasília.">
+                            <input type="text" name="nome" class="form-control w-100"   placeholder="Ex: Apartamento em Brasília.">
                         </div>
 
                         <div class="col-12 col-lg-6 col-xl-4 my-3">
                             <label class="text-muted"><b>Cep</b></label>
-                            <input type="number" name="cep" required  class="form-control w-100">
+                            <input type="number" name="cep"   class="form-control w-100">
                         </div>
 
                         <div class="col-12 col-lg-6 col-xl-4 my-3">
                             <label class="text-muted"><b>Endereço</b></label>
-                            <input type="text" name="endereco" required class="form-control w-100" >
+                            <input type="text" name="endereco"  class="form-control w-100" >
                         </div>
 
                         <div class="col-12 col-lg-6 col-xl-4 my-3">
                             <label class="text-muted"><b>Cidade</b></label>
-                            <input type="text" name="cidade" required class="form-control w-100" >
+                            <input type="text" name="cidade"  class="form-control w-100" >
                         </div>
 
                         <div class="col-12 col-lg-6 col-xl-4 my-3">
                             <label class="text-muted"><b>Estado</b></label>
-                            <select class="selectpicker w-100" name="estado" required  title="Selecione">
+                            <select class="selectpicker w-100" name="estado"   title="Selecione">
                                 <option value="AC">Acre</option>
                                 <option value="AL">Alagoas</option>
                                 <option value="AP">Amapá</option>
@@ -71,7 +71,7 @@
 
                         <div class="col-12 col-lg-6 col-xl-4 my-3">
                             <label class="text-muted"><b>Tipo de Imóvel</b></label>
-                            <select class="selectpicker w-100" required name="tipo_imovel"  title="Selecione">
+                            <select class="selectpicker w-100"  name="tipo_imovel"  title="Selecione">
                                 <option>Casa</option>
                                 <option>Apartamento</option>
                                 <option>Quitinete</option>
@@ -83,7 +83,7 @@
 
                         <div class="col-12 col-lg-6 col-xl-4 my-3">
                             <label class="text-muted"><b>Quantidade de Quartos</b></label>
-                            <select class="selectpicker w-100" required name="qt_quartos"  title="Selecione">
+                            <select class="selectpicker w-100"  name="qt_quartos"  title="Selecione">
                                 <option>Não possui</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -100,7 +100,7 @@
 
                         <div class="col-12 col-lg-6 col-xl-4 my-3">
                             <label class="text-muted"><b>Quantidade de Suítes</b></label>
-                            <select class="selectpicker w-100" required name="qt_suites"  title="Selecione">
+                            <select class="selectpicker w-100"  name="qt_suites"  title="Selecione">
                                 <option>Não possui</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -114,7 +114,7 @@
 
                         <div class="col-12 col-lg-6 col-xl-4 my-3">
                             <label class="text-muted"><b>Vagas de garagem</b></label>
-                            <select class="selectpicker w-100" required name="vagas"  title="Selecione">
+                            <select class="selectpicker w-100"  name="vagas"  title="Selecione">
                                 <option>Não possui</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -128,13 +128,13 @@
 
                         <div class="col-12 col-lg-6 col-xl-4 my-3">
                             <label class="text-muted"><b>Taxa de Condomínio</b></label>
-                            <input type="number" name="tx_cond" required class="form-control w-100" >
+                            <input type="number" name="tx_cond"  class="form-control w-100" >
                         </div>
 
 
                         <div class="col-12 col-lg-6 col-xl-4 my-3">
                             <label class="text-muted"><b>Tipo de Negócio</b></label>
-                            <select class="selectpicker w-100" required name="t_negocio"  title="Selecione">
+                            <select class="selectpicker w-100"  name="t_negocio"  title="Selecione">
                                 <option>Aluguel</option>
                                 <option>Venda</option>
                             </select>
@@ -142,7 +142,7 @@
 
                         <div class="col-12 col-lg-6 col-xl-4 my-3">
                             <label class="text-muted"><b>Status</b></label>
-                            <select class="selectpicker w-100" required name="status"  title="Selecione">
+                            <select class="selectpicker w-100"  name="status"  title="Selecione">
                                 <option>Disponível para aluguel</option>
                                 <option>Disponível para venda</option>
                                 <option>Alugado</option>
@@ -152,13 +152,13 @@
 
                         <div class="col-12 col-lg-6 col-xl-4 my-3">
                             <label class="text-muted"><b>Valor</b></label>
-                            <input type="number" name="valor" required class="form-control w-100" >
+                            <input type="number" name="valor"  class="form-control w-100" >
                         </div>
 
 
                         <div class="col-12 col-lg-12 col-xl-12 my-3">
                             <label class="text-muted"><b>Descrição do Imóvel</b></label>
-                            <textarea name="descricao" required class="form-control" rows="5"></textarea>
+                            <textarea name="descricao"  class="form-control" rows="5"></textarea>
                         </div>
 
                         <div class="col-12 my-3">

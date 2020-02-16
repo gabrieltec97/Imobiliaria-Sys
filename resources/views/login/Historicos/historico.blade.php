@@ -1,13 +1,13 @@
 @extends('includes.sidebar')
 
 @section('title')
-    Gerenciamento de Imóveis
+    Histórico de negociações
 @endsection
 
 @section('content')
 
     <div class="col-12">
-        <h1 class="text-center text-muted">Negócios fechados</h1>
+        <h1 class="text-center text-muted">Histórico de negociações</h1>
     </div>
     <div class="col-12">
         @if(session('msg'))
@@ -90,33 +90,34 @@
                 <table class="table table-striped bg-white table-hover table-responsive-lg">
                     <thead class="border">
                     <tr class="border">
-                        <th scope="col">Titulo</th>
-                        <th scope="col">Endereço</th>
-                        <th scope="col">Imóvel</th>
-                        <th scope="col">Quartos</th>
+                        <th scope="col">Imóvel Negociado</th>
+                        <th scope="col">Cliente responsável</th>
+                        <th scope="col">Negociado Em</th>
                         <th scope="col">Status</th>
+                        <th scope="col">Negociado Por</th>
+
                     </tr>
                     </thead>
                     <tbody class="border">
-                    @foreach($imoveis as $imovel)
+                    @foreach($negocios as $negocio)
                         <tr>
-                            <th class="text-muted font-weight-bold"><a href="{{ route('negocios_fechados.show', $imovel->id) }}">{{ $imovel->nome }}</a></th>
-                            <td class="text-muted font-weight-bold"><a href="{{ route('negocios_fechados.show', $imovel->id) }}">{{ $imovel->endereco }}</a></td>
-                            <td class="text-muted font-weight-bold"><a href="{{ route('negocios_fechados.show', $imovel->id) }}">{{ $imovel->tipo_imovel }}</a></td>
-                            <td class="text-muted font-weight-bold"><a href="{{ route('negocios_fechados.show', $imovel->id) }}">{{ $imovel->qt_quartos }}</a></td>
-                            <td class="text-muted font-weight-bold"><a href="{{ route('negocios_fechados.show', $imovel->id) }}">{{ $imovel->status }}</a></td>
+                            <th class="text-muted font-weight-bold"><a href="{{ route('historico.show', $negocio->id) }}">{{ $negocio->nome_imovel }}</a></th>
+                            <td class="text-muted font-weight-bold"><a href="{{ route('historico.show', $negocio->id) }}">{{ $negocio->nome_cliente }}</a></td>
+                            <td class="text-muted font-weight-bold"><a href="{{ route('historico.show', $negocio->id) }}">{{ $negocio->negociado_em }}</a></td>
+                            <td class="text-muted font-weight-bold"><a href="{{ route('historico.show', $negocio->id) }}">{{ $negocio->status }}</a></td>
+                            <td class="text-muted font-weight-bold"><a href="{{ route('historico.show', $negocio->id) }}">{{ $negocio->negociado_por }}</a></td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
 
-                @if(count($imoveis) == 0 &&  $verificacao == 1)
-                    <h5>Nenhum imóvel foi negociado ainda.</h5>
+                @if(count($negocios) == 0 &&  $verificacao == 1)
+                    <h5>Não há registros no histórico.</h5>
                 @endif
 
 
                 @if($valor == 0)
-                    <h5>Não foi encontrado nenhum imóvel com estas características.</h5>
+                    <h5>Não foi encontrado nenhuma negociacao com estas características.</h5>
                 @endif
             </div>
         </div>

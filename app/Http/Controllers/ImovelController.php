@@ -259,6 +259,7 @@ class ImovelController extends Controller
     public function fecharNegocio(Request $request, $id)
     {
         $imovel = Imovel::find($id);
+        $cliente = Cliente::find($request->cliente);
         $nome = Auth::user()->name;
         $sobrenome = Auth::user()->surname;
         $nomeCompleto = $nome . ' ' . $sobrenome;
@@ -298,10 +299,14 @@ class ImovelController extends Controller
             $historico = new Historico();
 
             $historico->cliente_responsavel = $request->cliente;
+            $historico->id_negocio_fechado = $novoRegistro->id;
             $historico->imovel_negociado = $imovel->id;
+            $historico->nome_cliente = $cliente->nome;
+            $historico->nome_imovel = $imovel->nome;
             $historico->negociado_em = $request->negociado_em;
             $historico->negociado_por = $nomeCompleto;
             $historico->status_pagamento = $request->status_pagamento;
+            $historico->status = 'Em andamento';
             $historico->observacoes = $request->observacoes;
             $historico->save();
 
@@ -340,7 +345,10 @@ class ImovelController extends Controller
             $historico = new Historico();
 
             $historico->cliente_responsavel = $request->cliente;
+            $historico->id_negocio_fechado = $novoRegistro->id;
             $historico->imovel_negociado = $imovel->id;
+            $historico->nome_cliente = $request->cliente;
+            $historico->nome_imovel = $imovel->nome;
             $historico->negociado_em = $request->negociado_em;
             $historico->negociado_por = $nomeCompleto;
             $historico->status_pagamento = $request->status_pagamento;

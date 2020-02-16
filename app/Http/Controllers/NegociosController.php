@@ -94,6 +94,9 @@ class NegociosController extends Controller
 
     public function retornar(Request $request, $id)
     {
+        $hoje = new \DateTime();
+        $atual = $hoje->format('Y-m-d');
+
         $imovelNegocio = NegociosFechados::find($id);
 
         if ($imovelNegocio->status == 'Alugado'){
@@ -130,8 +133,9 @@ class NegociosController extends Controller
             DB::table('contratos')->where('id_negocio', '=', $id)->delete();
 
             //Atualizando o histórico
-            DB::table('historicos')->where('imovel_negociado', '=', $imovelNegocio->imovel_negociado)
-                ->update(['status' => 'Negócio Encerrado', 'status' => 'Encerrado', 'motivo_encerramento' => $request->cancelamento]);
+            DB::table('historicos')->where('id_negocio_fechado', '=', $imovelNegocio->id)
+                ->update(['status' => 'Negócio Encerrado', 'motivo_encerramento' => $request->cancelamento,
+                'data_encerramento' => $atual]);
 
             return redirect(route('imovel.index'))->with('msg-4', 'Negócio desfeito com sucesso!');
 
@@ -168,8 +172,14 @@ class NegociosController extends Controller
             //Deletando o contrato do banco.
             DB::table('contratos')->where('id_negocio', '=', $id)->delete();
 
+            //Atualizando o histórico
+            DB::table('historicos')->where('id_negocio_fechado', '=', $imovelNegocio->id)
+                ->update(['status' => 'Negócio Encerrado', 'motivo_encerramento' => $request->cancelamento,
+                    'data_encerramento' => $atual]);
+
             return redirect(route('imovel.index'))->with('msg-4', 'Negócio desfeito com sucesso!');
         }
+
     }
 
     public function negociarCadastrar(Request $request, $id)
@@ -230,10 +240,14 @@ class NegociosController extends Controller
             $historico = new Historico();
 
             $historico->cliente_responsavel = $cliente->id;
+            $historico->id_negocio_fechado = $novoRegistro->id;
             $historico->imovel_negociado = $id;
+            $historico->nome_cliente = $cliente->nome;
+            $historico->nome_imovel = $imovel->nome;
             $historico->negociado_em = $request->negociado_em;
             $historico->negociado_por = $nomeCompleto;
             $historico->status_pagamento = $request->status_pagamento;
+            $historico->status = 'Em andamento';
             $historico->observacoes = '';
             $historico->save();
 
@@ -243,11 +257,11 @@ class NegociosController extends Controller
             $imovel = Imovel::find($id);
             $novoRegistro = new NegociosFechados();
 
-            $novoRegistro->cliente_responsavel = $request->cliente;
-            $novoRegistro->imovel_negociado = $imovel->id;
+            $novoRegistro->cliente_responsavel = $cliente->id;
+            $novoRegistro->imovel_negociado = $id;
             $novoRegistro->negociado_em = $request->negociado_em;
             $novoRegistro->negociado_por = $nomeCompleto;
-            $novoRegistro->status_pagamento = 'Em dia';
+            $novoRegistro->status_pagamento = 'Mensalidades em dia';
             $novoRegistro->observacoes = '';
             $novoRegistro->id = $imovel->id;
             $novoRegistro->nome = $imovel->nome;
@@ -272,10 +286,14 @@ class NegociosController extends Controller
             $historico = new Historico();
 
             $historico->cliente_responsavel = $cliente->id;
+            $historico->id_negocio_fechado = $novoRegistro->id;
             $historico->imovel_negociado = $id;
+            $historico->nome_cliente = $cliente->nome;
+            $historico->nome_imovel = $imovel->nome;
             $historico->negociado_em = $request->negociado_em;
             $historico->negociado_por = $nomeCompleto;
             $historico->status_pagamento = $request->status_pagamento;
+            $historico->status = 'Em andamento';
             $historico->observacoes = '';
             $historico->save();
         }

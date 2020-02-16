@@ -87,7 +87,7 @@
                 </li>
 
                 <li>
-                    <a href="#"><i class="fas fa-h-square mr-3"></i><b>Histórico de Negócios</b></a>
+                    <a href="{{ route('historico.index') }}"><i class="fas fa-h-square mr-3"></i><b>Histórico de Negócios</b></a>
                 </li>
 
 
