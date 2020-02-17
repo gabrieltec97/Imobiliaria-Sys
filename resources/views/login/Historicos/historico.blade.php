@@ -1,7 +1,7 @@
 @extends('includes.sidebar')
 
 @section('title')
-    Histórico de negociações
+    Histórico de Negociações
 @endsection
 
 @section('content')
@@ -52,32 +52,17 @@
         <div class="row">
             <div class="col-12 mt-2">
                 <div class="container">
-                    <div class="row">
+                    <div class="row mb-3">
                         <div class="col-12">
                             <h6 class="text-muted"><b>Busca rápida</b></h6>
-                            <form action="{{ route('pesquisar') }}" method="get" class="form-group">
+                            <form action="{{ route('buscar-em-historico') }}" method="get" class="form-group">
                                 <div class="row">
-                                    <div class="col-12 col-lg-6 col-xl-4 mb-3">
-                                        <select class="form-control bg-light" name="tipo_imovel" title="Tipo de Imóvel">
-                                            <option></option>
-                                            <option>Casa</option>
-                                            <option>Apartamento</option>
-                                            <option>Quitinete</option>
-                                            <option>Casa de Condomínio</option>
-                                            <option>Hostel</option>
-                                            <option>Sala de Escritório</option>
-                                        </select>
+                                    <div class="col-12 col-lg-9">
+                                        <input type="text" name="imovel" class="form-control bg-light my-3 my-md-0" value="{{ (!empty($busca)? $busca : '') }}" placeholder="Digite o nome do imóvel">
                                     </div>
 
-                                    <div class="col-12 col-lg-6 col-xl-4">
-                                        <input type="text" name="cidade" class="form-control bg-light my-3 my-md-0" placeholder="Digite o nome da cidade">
-                                    </div>
-
-                                    <div class="col-12 col-xl-4 mt-xl-0">
-                                        <button class="btn btn-custom font-weight-bold float-lg-right float-xl-left"><i class="fas fa-search mr-2"></i>Buscar</button>
-                                        @if(!empty($ver))
-                                            <a href="{{ route('negocios_fechados.index') }}" class="btn btn-front text-white float-right font-weight-bold mr-2"><i class="fas fa-arrow-circle-left mr-2"></i>Voltar</a>
-                                        @endif
+                                    <div class="col-12 col-lg-3">
+                                        <button type="submit" class="btn btn-custom font-weight-bold"><i class="fas fa-search mr-2"></i>Buscar</button>
                                     </div>
                                 </div>
                             </form>
@@ -87,7 +72,7 @@
             </div>
 
             <div class="col-12">
-                <table class="table table-striped bg-white table-hover table-responsive-lg">
+                <table class="table table-hover table-responsive-lg">
                     <thead class="border">
                     <tr class="border">
                         <th scope="col">Imóvel Negociado</th>
@@ -98,12 +83,12 @@
 
                     </tr>
                     </thead>
-                    <tbody class="border">
+                    <tbody class="border border-bottom">
                     @foreach($negocios as $negocio)
                         <tr>
                             <th class="text-muted font-weight-bold"><a href="{{ route('historico.show', $negocio->id) }}">{{ $negocio->nome_imovel }}</a></th>
                             <td class="text-muted font-weight-bold"><a href="{{ route('historico.show', $negocio->id) }}">{{ $negocio->nome_cliente }}</a></td>
-                            <td class="text-muted font-weight-bold"><a href="{{ route('historico.show', $negocio->id) }}">{{ $negocio->negociado_em }}</a></td>
+                            <td class="text-muted font-weight-bold"><a href="{{ route('historico.show', $negocio->id) }}">{{ $negocio->negociado_em }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>
                             <td class="text-muted font-weight-bold"><a href="{{ route('historico.show', $negocio->id) }}">{{ $negocio->status }}</a></td>
                             <td class="text-muted font-weight-bold"><a href="{{ route('historico.show', $negocio->id) }}">{{ $negocio->negociado_por }}</a></td>
                         </tr>
@@ -111,13 +96,15 @@
                     </tbody>
                 </table>
 
+
+
                 @if(count($negocios) == 0 &&  $verificacao == 1)
                     <h5>Não há registros no histórico.</h5>
                 @endif
 
 
                 @if($valor == 0)
-                    <h5>Não foi encontrado nenhuma negociacao com estas características.</h5>
+                    <h5>Não foi encontrada nenhuma negociação com estas características.</h5>
                 @endif
             </div>
         </div>

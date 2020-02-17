@@ -127,6 +127,8 @@ Route::group(['middleware' => ['auth']], function () {
     //Rota de Histórico
     Route::resource('historico', 'HistoricoController');
 
+    Route::get('/buscar-em-historico', 'HistoricoController@buscar')->name('buscar-em-historico');
+
 
 
 

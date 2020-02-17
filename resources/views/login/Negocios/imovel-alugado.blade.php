@@ -108,7 +108,7 @@
                                             @endif
                                         </a></td>
 
-                                    @if($imovel->observacoes == '')
+                                    @if($imovel->observacoes == '' or $imovel->observacoes == null)
                                         <td class="text-muted font-weight-bold"><a href="{{ route('negocios_fechados.show', $imovel->id) }}">Sem observações</a></td>
                                     @else
                                         <td class="text-muted font-weight-bold"><a href="{{ route('negocios_fechados.show', $imovel->id) }}">{{ $imovel->observacoes }}</a></td>

@@ -225,14 +225,9 @@ class ImovelController extends Controller
 
     public function pesquisa(Request $request)
     {
-
-        if($request->tipo_imovel == '' or $request->cidade == ''){
-
-            return redirect(route('gerenciamento-imoveis'));
-        }else {
+            $busca = $request->imovel;
             $imoveis = DB::table('imovels')
-                ->where('tipo_imovel', '=', $request->tipo_imovel)
-                ->where('cidade', '=', $request->cidade)->get();
+                ->where('nome', 'like', '%'. $busca . '%')->get();
 
             $ver = 1;
             $verificacao = 2;
@@ -243,9 +238,9 @@ class ImovelController extends Controller
                 $valor =1;
             }
 
-            return view('login.Imoveis.gerenciamento', compact('imoveis', 'ver', 'valor', 'verificacao'));
+            return view('login.Imoveis.gerenciamento', compact('imoveis', 'ver', 'valor', 'verificacao', 'busca'));
         }
-    }
+
 
     public function negociar($id)
     {
@@ -263,6 +258,8 @@ class ImovelController extends Controller
         $nome = Auth::user()->name;
         $sobrenome = Auth::user()->surname;
         $nomeCompleto = $nome . ' ' . $sobrenome;
+        $data = $request->negociado_em;
+        $dataFormatada = date("d-m-Y", strtotime($data));
 
         /*Movendo o imóvel para negócios fechados e informando o imóvel
         que está sendo negociado, status e observações.*/
@@ -273,7 +270,7 @@ class ImovelController extends Controller
 
             $novoRegistro->cliente_responsavel = $request->cliente;
             $novoRegistro->imovel_negociado = $imovel->id;
-            $novoRegistro->negociado_em = $request->negociado_em;
+            $novoRegistro->negociado_em = $dataFormatada;
             $novoRegistro->negociado_por = $nomeCompleto;
             $novoRegistro->status_pagamento = $request->status_pagamento;
             $novoRegistro->observacoes = $request->observacoes;
@@ -303,7 +300,7 @@ class ImovelController extends Controller
             $historico->imovel_negociado = $imovel->id;
             $historico->nome_cliente = $cliente->nome;
             $historico->nome_imovel = $imovel->nome;
-            $historico->negociado_em = $request->negociado_em;
+            $historico->negociado_em = $dataFormatada;
             $historico->negociado_por = $nomeCompleto;
             $historico->status_pagamento = $request->status_pagamento;
             $historico->status = 'Em andamento';
@@ -318,7 +315,7 @@ class ImovelController extends Controller
 
             $novoRegistro->cliente_responsavel = $request->cliente;
             $novoRegistro->imovel_negociado = $imovel->id;
-            $novoRegistro->negociado_em = $request->negociado_em;
+            $novoRegistro->negociado_em = $dataFormatada;
             $novoRegistro->negociado_por = $nomeCompleto;
             $novoRegistro->status_pagamento = $request->status_pagamento;
             $novoRegistro->observacoes = $request->observacoes;
@@ -349,7 +346,7 @@ class ImovelController extends Controller
             $historico->imovel_negociado = $imovel->id;
             $historico->nome_cliente = $request->cliente;
             $historico->nome_imovel = $imovel->nome;
-            $historico->negociado_em = $request->negociado_em;
+            $historico->negociado_em = $dataFormatada;
             $historico->negociado_por = $nomeCompleto;
             $historico->status_pagamento = $request->status_pagamento;
             $historico->observacoes = $request->observacoes;
@@ -395,5 +392,5 @@ class ImovelController extends Controller
 
 }
 
-/*O método de desfazer contrato e cadastrar novo cliente no processo de fechamento de negócio ficou
-no NegócioController para evitar sobrecarga neste controlador.*/
+/* O método de desfazer contrato e cadastrar novo cliente no processo de fechamento de negócio ficou
+no NegócioController para evitar sobrecarga neste controlador. */

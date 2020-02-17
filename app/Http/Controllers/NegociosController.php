@@ -26,13 +26,9 @@ class NegociosController extends Controller
 
     public function pesquisaNegocios(Request $request)
     {
-        if($request->tipo_imovel == '' or $request->cidade == ''){
-
-            return redirect(route('negocios-fechados'));
-        }else {
-            $imoveis = DB::table('negocios_fechados')
-                ->where('tipo_imovel', '=', $request->tipo_imovel)
-                ->where('cidade', '=', $request->cidade)->get();
+        $busca = $request->imovel;
+        $imoveis = DB::table('negocios_fechados')
+             ->where('nome', 'like', '%'. $busca . '%')->get();
 
             $ver = 1;
             $verificacao = 2;
@@ -43,9 +39,8 @@ class NegociosController extends Controller
                 $valor = 1;
             }
 
-            return view('login.Negocios.gerenciamento-negocios', compact('imoveis', 'ver', 'valor', 'verificacao'));
+            return view('login.Negocios.gerenciamento-negocios', compact('imoveis', 'ver', 'valor', 'verificacao', 'busca'));
         }
-    }
 
 
     public function show($id)
@@ -95,7 +90,7 @@ class NegociosController extends Controller
     public function retornar(Request $request, $id)
     {
         $hoje = new \DateTime();
-        $atual = $hoje->format('Y-m-d');
+        $atual = $hoje->format('d-m-Y');
 
         $imovelNegocio = NegociosFechados::find($id);
 
@@ -188,6 +183,8 @@ class NegociosController extends Controller
         $nome = Auth::user()->name;
         $sobrenome = Auth::user()->surname;
         $nomeCompleto = $nome . ' ' . $sobrenome;
+        $data = $request->negociado_em;
+        $dataFormatada = date("d-m-Y", strtotime($data));
 
         $cliente = new Cliente();
 
@@ -213,10 +210,10 @@ class NegociosController extends Controller
 
             $novoRegistro->cliente_responsavel = $cliente->id;
             $novoRegistro->imovel_negociado = $id;
-            $novoRegistro->negociado_em = $request->negociado_em;
+            $novoRegistro->negociado_em = $dataFormatada;
             $novoRegistro->negociado_por = $nomeCompleto;
             $novoRegistro->status_pagamento = $request->status_pagamento;
-            $novoRegistro->observacoes = '';
+            $novoRegistro->observacoes = $request->observacoes;
             $novoRegistro->nome = $imovel->nome;
             $novoRegistro->cep = $imovel->cep;
             $novoRegistro->endereco = $imovel->endereco;
@@ -244,11 +241,11 @@ class NegociosController extends Controller
             $historico->imovel_negociado = $id;
             $historico->nome_cliente = $cliente->nome;
             $historico->nome_imovel = $imovel->nome;
-            $historico->negociado_em = $request->negociado_em;
+            $historico->negociado_em = $dataFormatada;
             $historico->negociado_por = $nomeCompleto;
             $historico->status_pagamento = $request->status_pagamento;
             $historico->status = 'Em andamento';
-            $historico->observacoes = '';
+            $historico->observacoes = $request->observacoes;
             $historico->save();
 
         }
@@ -259,10 +256,10 @@ class NegociosController extends Controller
 
             $novoRegistro->cliente_responsavel = $cliente->id;
             $novoRegistro->imovel_negociado = $id;
-            $novoRegistro->negociado_em = $request->negociado_em;
+            $novoRegistro->negociado_em = $dataFormatada;
             $novoRegistro->negociado_por = $nomeCompleto;
             $novoRegistro->status_pagamento = 'Mensalidades em dia';
-            $novoRegistro->observacoes = '';
+            $novoRegistro->observacoes = $request->observacoes;
             $novoRegistro->id = $imovel->id;
             $novoRegistro->nome = $imovel->nome;
             $novoRegistro->cep = $imovel->cep;
@@ -290,11 +287,11 @@ class NegociosController extends Controller
             $historico->imovel_negociado = $id;
             $historico->nome_cliente = $cliente->nome;
             $historico->nome_imovel = $imovel->nome;
-            $historico->negociado_em = $request->negociado_em;
+            $historico->negociado_em = $dataFormatada;
             $historico->negociado_por = $nomeCompleto;
             $historico->status_pagamento = $request->status_pagamento;
             $historico->status = 'Em andamento';
-            $historico->observacoes = '';
+            $historico->observacoes = $request->observacoes;
             $historico->save();
         }
 

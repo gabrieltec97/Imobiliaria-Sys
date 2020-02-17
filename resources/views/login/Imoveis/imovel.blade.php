@@ -88,7 +88,7 @@
                     </div>
 
                     <div class="col-12 col-md-4 mb-2 mb-lg-0">
-                        <h6><b>Taxa de condomínio: </b>{{ $imovel->tx_condominio }}</h6>
+                        <h6><b>Taxa de condomínio: </b>R$ {{ $imovel->tx_condominio }}</h6>
                     </div>
 
                     <div class="col-12 col-md-4 mb-2 mb-lg-0">

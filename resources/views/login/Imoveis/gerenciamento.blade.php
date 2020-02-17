@@ -69,42 +69,24 @@
         <div class="row">
 
             <div class="col-12 mt-3">
-                <div class="alert alert-primary" role="alert">
                     <div class="container">
                         <div class="row">
                             <div class="col-12">
-                                        <h6 class="text-muted"><b>Busca rápida</b></h6>
+                                <h6 class="text-muted"><b>Busca rápida</b></h6>
                                 <form action="{{ route('pesquisa-imoveis-adm') }}" method="get" class="form-group">
-                                        <div class="row">
-                                            <div class="col-12 col-lg-6">
-                                                    <select class="form-control bg-light" name="tipo_imovel" title="Tipo de Imóvel">
-                                                        <option></option>
-                                                        <option>Casa</option>
-                                                        <option>Apartamento</option>
-                                                        <option>Quitinete</option>
-                                                        <option>Casa de Condomínio</option>
-                                                        <option>Hostel</option>
-                                                        <option>Sala de Escritório</option>
-                                                    </select>
-                                            </div>
+                                    <div class="row">
+                                       <div class="col-12 col-lg-9">
+                                          <input type="text" name="imovel" class="form-control bg-light my-3 my-md-0" value="{{ (!empty($busca)? $busca : '') }}" placeholder="Digite o nome do imóvel">
+                                       </div>
 
-                                            <div class="col-12 col-lg-6">
-                                                <input type="text" name="cidade" class="form-control bg-light my-3 my-md-0" placeholder="Digite o nome da cidade">
-                                            </div>
-
-                                            <div class="col-12 mt-3">
-                                                    @if(!empty($ver))
-                                                        <a href="{{ route('gerenciamento-imoveis') }}" class="btn btn-front text-white font-weight-bold ml-2 float-right"><i class="fas fa-arrow-circle-left mr-2"></i>Voltar</a>
-                                                    @endif
-
-                                                    <button class="btn btn-custom font-weight-bold float-right"><i class="fas fa-search mr-2"></i>Buscar</button>
-                                            </div>
-                                        </div>
+                                       <div class="col-12 col-lg-3">
+                                          <button class="btn btn-custom font-weight-bold"><i class="fas fa-search mr-2"></i>Buscar</button>
+                                       </div>
+                                    </div>
                                 </form>
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
 
             <div class="col-12">
