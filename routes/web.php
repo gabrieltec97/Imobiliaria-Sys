@@ -12,17 +12,13 @@
 */
 
 //Rotas de renderização das views do sistema.
-Route::get('/', function () {
-    return view('inicio');
-})->name('inicio');
+Route::get('/', 'FrontController@inicio')->name('inicio');
 
-Route::get('/buscar-imoveis', function (){
-   return view('buscar-imoveis');
-})->name('buscar-imoveis');
+Route::get('/buscar-imoveis', 'FrontController@buscarImoveis')->name('buscar-imoveis');
 
-Route::get('/contato', function (){
-    return view('contato');
-})->name('contato');
+Route::get('/contato', 'FrontController@contato')->name('contato');
+
+Route::get('/imovel/{id}', 'FrontController@imovel')->name('ap-imovel');
 
 
 

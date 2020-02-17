@@ -117,103 +117,47 @@
 
 
             <div class="row mt-5">
-                <div class="col-12 col-sm-4 mr-sm-5  col-lg-3 quarta_dobra_cards">
-                    <div class="card" style="width: 18rem; height: 34rem;">
-                        <img class="card-img-top img-fluid" src="{{ asset('site/img/0ed8b84d-67c1-4688-86de-433ec3a498d5.jpg') }}" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title text-front"><b>Linda casa com piscina em Florianópolis</b></h5>
-                            <p class="card-text">Imóvel Residencial</p>
-                            <p class="text-muted">Casa - Campeche &nbsp;<i class="fas fa-location-arrow icon-1"></i></p>
-                            <h4 class="text-front mb-0"><b>R$ 400.000,00</b></h4>
-                        </div>
+                @foreach($imoveisVenda as $key => $value)
+                <div class="col-12 col-sm-4 col-lg-4 quarta_dobra_cards">
+                        <div class="card" style="height: 40rem">
+                            @foreach($fotos as $foto)
+                                @if($value->id == $foto['id'])
+                                    <a href="{{ route('ap-imovel', $value->id) }}"><img class="card-img-top img-fluid" src="{{ asset($foto['foto']) }}" style="height: 210px" alt="Card image cap"></a>
+                                @endif
+                            @endforeach
+                            <div class="card-body mb-2">
+                                <a href="{{ route('ap-imovel', $value->id) }}"><h5 class="card-title text-front"><b>{{ $value->nome }}</b></h5></a>
+                                <a href="{{ route('ap-imovel', $value->id) }}"><p class="card-text text-muted">{{ $value->descricao }}</p></a>
+                                <a href="{{ route('ap-imovel', $value->id) }}"><p class="text-muted font-weight-bold">{{ $value->tipo_imovel }} - {{ $value->cidade }} &nbsp;<i class="fas fa-location-arrow icon-1"></i></p></a>
+                                <a href="{{ route('ap-imovel', $value->id) }}"><h4 class="text-front"><b>R$: {{ $value->valor }}</b></h4></a>
+                            </div>
 
-                        <div class="card-footer">
-                            <div class="row quarta_dobra_content">
-                                <div class="col-4 mt-1">
-                                    <i class="fas fa-bed icon-footer text-front"></i>
-                                    <p style="margin-left: 15px; margin-top: 5px"><b>3</b></p>
-                                </div>
+                            <div class="card-footer">
+                                <div class="row quarta_dobra_content">
+                                    <div class="col-4 mt-1">
+                                        <a href="{{ route('ap-imovel', $value->id) }}"><i class="fas fa-bed icon-footer text-front"></i></a>
+                                        <a href="{{ route('ap-imovel', $value->id) }}"><p style="margin-left: 15px; margin-top: 5px"><b>{{ $value->qt_quartos }}</b></p></a>
+                                    </div>
 
-                                <div class="col-4 mt-1">
-                                    <i class="fas fa-warehouse icon-footer text-front"></i>
-                                    <p style="margin-left: 15px; margin-top: 5px"><b>2</b></p>
-                                </div>
+                                    <div class="col-4 mt-1">
+                                        <a href="{{ route('ap-imovel', $value->id) }}"><i class="fas fa-warehouse icon-footer text-front"></i></a>
+                                        <a href="{{ route('ap-imovel', $value->id) }}"><p style="margin-left: 15px; margin-top: 5px"><b>{{ $value->vagas_garagem }}</b></p></a>
+                                    </div>
 
-                                <div class="col-4 mt-1">
-                                    <i class="fas fa-home icon-footer text-front"></i>
-                                    <p style="margin-top: 5px"><b>180m²</b></p>
+                                    <div class="col-4 mt-1">
+                                        <a href="{{ route('ap-imovel', $value->id) }}"><i class="fas fa-home icon-footer text-front"></i></a>
+                                        <a href="{{ route('ap-imovel', $value->id) }}"><p style="margin-top: 5px"><b>180m²</b></p></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
-
-                <div class="col-12 col-sm-4 ml-sm-4 mx-xl-5 col-lg-3 mr-lg-5 quarta_dobra_cards">
-                    <div class="card" style="width: 18rem; height: 34rem;">
-                        <img class="card-img-top img-fluid" src="{{ asset('site/img/667d07e1-c0ac-4e3b-b450-4bc9bcc9bffb.jpg') }}" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title text-front"><b>Casa com 3 quartos no Campeche com ótima vista</b></h5>
-                            <p class="card-text">Imóvel Residencial</p>
-                            <p class="text-muted">Casa - Coqueiros &nbsp;<i class="fas fa-location-arrow icon-1"></i></p>
-                            <h4 class="text-front mb-0"><b>R$ 350.000,00</b></h4>
-                        </div>
-
-                        <div class="card-footer">
-                            <div class="row quarta_dobra_content">
-                                <div class="col-4 mt-1">
-                                    <i class="fas fa-bed icon-footer text-front"></i>
-                                    <p style="margin-left: 15px; margin-top: 5px"><b>2</b></p>
-                                </div>
-
-                                <div class="col-4 mt-1">
-                                    <i class="fas fa-warehouse icon-footer text-front"></i>
-                                    <p style="margin-left: 15px; margin-top: 5px"><b>1</b></p>
-                                </div>
-
-                                <div class="col-4 mt-1">
-                                    <i class="fas fa-home icon-footer text-front"></i>
-                                    <p style="margin-top: 5px"><b>120m²</b></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-lg-3 mx-xl-5 ml-lg-4 quarta_dobra_cards">
-                    <div class="card" style="width: 18rem; height: 34rem;">
-                        <img class="card-img-top img-fluid" src="{{ asset('site/img/f6020214-9d26-4904-b24b-2f447ef7c4f8.jpg') }}" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title text-front"><b>Apartamento no prédio XPTO com vista para a lagoa.</b></h5>
-                            <p class="card-text">Comercial/Industrial</p>
-                            <p class="text-muted">Sala Comercial - Itacorubi &nbsp;<i class="fas fa-location-arrow icon-1"></i></p>
-                            <h4 class="text-front mb-0"><b>R$ 600.000,00</b></h4>
-                        </div>
-
-                        <div class="card-footer">
-                            <div class="row quarta_dobra_content">
-                                <div class="col-4 mt-1">
-                                    <i class="fas fa-bed icon-footer text-front"></i>
-                                    <p style="margin-left: 15px; margin-top: 5px"><b>4</b></p>
-                                </div>
-
-                                <div class="col-4 mt-1">
-                                    <i class="fas fa-warehouse icon-footer text-front"></i>
-                                    <p style="margin-left: 15px; margin-top: 5px"><b>3</b></p>
-                                </div>
-
-                                <div class="col-4 mt-1">
-                                    <i class="fas fa-home icon-footer text-front"></i>
-                                    <p style="margin-top: 5px"><b>200m²</b></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                @endforeach
                 </div>
             </div>
-        </div>
     </section>
 
-    <section class="quinta_dobra">
+    <section class="quinta_dobra mb-2">
         <div class="container-fluid bg-light mt-5">
             <div class="container">
                 <div class="row border-bottom border-front">
@@ -227,100 +171,51 @@
                 </div>
 
                 <div class="row mt-5">
-                    <div class="col-12 col-lg-3 mr-5 quinta_dobra_cards">
-                        <div class="card" style="width: 18rem; height: 34rem;">
-                            <img class="card-img-top img-fluid" src="{{ asset('site/img/0ed8b84d-67c1-4688-86de-433ec3a498d5.jpg') }}" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title text-front"><b>Linda casa com piscina em Florianópolis</b></h5>
-                                <p class="card-text">Imóvel Residencial</p>
-                                <p class="text-muted">Casa - Campeche &nbsp;<i class="fas fa-location-arrow icon-1"></i></p>
-                                <h4 class="text-front mb-0"><b>R$ 400.000,00</b></h4>
-                            </div>
+                    @foreach($imoveisAluguel as $key => $value)
+                        <div class="col-12 col-sm-4 col-lg-4 quarta_dobra_cards">
+                            <div class="card" style="height: 40rem">
+                                @foreach($fotos as $foto)
+                                    @if($value->id == $foto['id'])
+                                        <img class="card-img-top img-fluid" src="{{ asset($foto['foto']) }}" style="height: 210px" alt="Card image cap">
+                                    @endif
+                                @endforeach
 
-                            <div class="card-footer">
-                                <div class="row quarta_dobra_content">
-                                    <div class="col-4 mt-1">
-                                        <i class="fas fa-bed icon-footer text-front"></i>
-                                        <p style="margin-left: 15px; margin-top: 5px"><b>3</b></p>
-                                    </div>
+                                <div class="card-body mb-2">
+                                    <h5 class="card-title text-front"><b>{{ $value->nome }}</b></h5>
+                                    <p class="card-text text-muted">{{ $value->descricao }}</p>
+                                    <p class="text-muted font-weight-bold">{{ $value->tipo_imovel }} - {{ $value->cidade }} &nbsp;<i class="fas fa-location-arrow icon-1"></i></p>
+                                    <h4 class="text-front"><b>R$: {{ $value->valor }}</b></h4>
+                                </div>
 
-                                    <div class="col-4 mt-1">
-                                        <i class="fas fa-warehouse icon-footer text-front"></i>
-                                        <p style="margin-left: 15px; margin-top: 5px"><b>2</b></p>
-                                    </div>
+                                <div class="card-footer">
+                                    <div class="row quarta_dobra_content">
+                                        <div class="col-4 mt-1">
+                                            <i class="fas fa-bed icon-footer text-front"></i>
+                                            <p style="margin-left: 15px; margin-top: 5px"><b>{{ $value->qt_quartos }}</b></p>
+                                        </div>
 
-                                    <div class="col-4 mt-1">
-                                        <i class="fas fa-home icon-footer text-front"></i>
-                                        <p style="margin-top: 5px"><b>180m²</b></p>
+                                        <div class="col-4 mt-1">
+                                            <i class="fas fa-warehouse icon-footer text-front"></i>
+                                            <p style="margin-left: 15px; margin-top: 5px"><b>
+                                                    @if($value->vagas_garagem == 'Não possui')
+                                                        0
+                                                    @else
+                                                        {{ $value->vagas_garagem  }}
+                                                    @endif
+                                                </b></p>
+                                        </div>
+
+                                        <div class="col-4 mt-1">
+                                            <i class="fas fa-home icon-footer text-front"></i>
+                                            <p style="margin-top: 5px"><b>180m²</b></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-12 ml-sm-4 col-lg-3 mx-xl-5 mr-lg-5 quinta_dobra_cards">
-                        <div class="card" style="width: 18rem; height: 34rem;">
-                            <img class="card-img-top img-fluid" src="{{ asset('site/img/667d07e1-c0ac-4e3b-b450-4bc9bcc9bffb.jpg') }}" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title text-front"><b>Casa com 3 quartos no Campeche com ótima vista</b></h5>
-                                <p class="card-text">Imóvel Residencial</p>
-                                <p class="text-muted">Casa - Coqueiros &nbsp;<i class="fas fa-location-arrow icon-1"></i></p>
-                                <h4 class="text-front mb-0"><b>R$ 350.000,00</b></h4>
-                            </div>
-
-                            <div class="card-footer">
-                                <div class="row quarta_dobra_content">
-                                    <div class="col-4 mt-1">
-                                        <i class="fas fa-bed icon-footer text-front"></i>
-                                        <p style="margin-left: 15px; margin-top: 5px"><b>2</b></p>
-                                    </div>
-
-                                    <div class="col-4 mt-1">
-                                        <i class="fas fa-warehouse icon-footer text-front"></i>
-                                        <p style="margin-left: 15px; margin-top: 5px"><b>1</b></p>
-                                    </div>
-
-                                    <div class="col-4 mt-1">
-                                        <i class="fas fa-home icon-footer text-front"></i>
-                                        <p style="margin-top: 5px"><b>120m²</b></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-lg-3 ml-lg-4 ml-xl-5 mb-5 quinta_dobra_cards">
-                        <div class="card" style="width: 18rem; height: 34rem;">
-                            <img class="card-img-top img-fluid" src="{{ asset('site/img/f6020214-9d26-4904-b24b-2f447ef7c4f8.jpg') }}" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title text-front"><b>Apartamento no prédio XPTO com vista para a lagoa.</b></h5>
-                                <p class="card-text">Comercial/Industrial</p>
-                                <p class="text-muted">Sala Comercial - Itacorubi &nbsp;<i class="fas fa-location-arrow icon-1"></i></p>
-                                <h4 class="text-front mb-0"><b>R$ 600.000,00</b></h4>
-                            </div>
-
-                            <div class="card-footer">
-                                <div class="row quarta_dobra_content">
-                                    <div class="col-4 mt-1">
-                                        <i class="fas fa-bed icon-footer text-front"></i>
-                                        <p style="margin-left: 15px; margin-top: 5px"><b>4</b></p>
-                                    </div>
-
-                                    <div class="col-4 mt-1">
-                                        <i class="fas fa-warehouse icon-footer text-front"></i>
-                                        <p style="margin-left: 15px; margin-top: 5px"><b>3</b></p>
-                                    </div>
-
-                                    <div class="col-4 mt-1">
-                                        <i class="fas fa-home icon-footer text-front"></i>
-                                        <p style="margin-top: 5px"><b>200m²</b></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
-            </div>
+        </div>
         </div>
     </section>
 
