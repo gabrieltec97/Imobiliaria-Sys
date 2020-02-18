@@ -79,7 +79,36 @@
                    </div>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
 
+<section class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mt-5">
+                <h2 class="font-weight-bold text-center">Ficou interessado(a)? Entre em contato conosco!</h2>
+                <h6 class="text-muted text-center">Basta preencher o formulário abaixo e entraremos em contato com você!</h6>
+            </div>
+            <div class="col-12 my-4">
+                <div class="row">
+                    <div class="col-12 col-lg-6 mb-4 mb-lg-0">
+                        <textarea name="imovel" class="form-control" rows="8">Olá, eu fiquei interessado(a) no imóvel {{ $imovel->nome }} ({{ $imovel->id }}), poderia entrar em contato comigo para me dar mais informações sobre este imóvel?
+                        </textarea>
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+                        <input type="text" class="form-control mb-4" placeholder="Digite seu nome">
+                        <input type="email" class="form-control mb-4" placeholder="Digite seu e-mail">
+                        <input type="number" class="form-control mb-4" placeholder="Digite seu número de telefone">
+                        <input type="checkbox" name="contatowpp" value="positivo"> <span class="text-front font-weight-bold">&nbsp;Aceito ser respondido(a) via WhatsApp.</span>
+                    </div>
+
+                    <div class="col-12 mt-5">
+                        <button type="submit" class="btn btn-front font-weight-bold float-right">Enviar e-mail</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>

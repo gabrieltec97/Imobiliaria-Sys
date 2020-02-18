@@ -173,7 +173,7 @@
                 <div class="row mt-5">
                     @foreach($imoveisAluguel as $key => $value)
                         <div class="col-12 col-sm-4 col-lg-4 quarta_dobra_cards">
-                            <div class="card" style="height: 55rem">
+                            <div class="card">
                                 @foreach($fotos as $foto)
                                     @if($value->id == $foto['id'])
                                         <a href="{{ route('ap-imovel', $value->id) }}"><img class="card-img-top img-fluid" src="{{ asset($foto['foto']) }}" style="height: 210px" alt="Card image cap"></a>
