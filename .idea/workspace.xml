@@ -130,6 +130,9 @@
       <method v="2" />
     </configuration>
   </component>
+  <component name="ServiceViewManager">
+    <option name="showServicesTree" value="false" />
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -167,6 +170,7 @@
       <workItem from="1581867532064" duration="3266000" />
       <workItem from="1581949347292" duration="6113000" />
       <workItem from="1581961331770" duration="7376000" />
+      <workItem from="1581984207355" duration="6386000" />
     </task>
     <servers />
   </component>

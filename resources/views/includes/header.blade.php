@@ -1,7 +1,7 @@
 <section class="topo bg-light">
     <div class="container-fluid py-4">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#"><img src="{{ asset('site/img/logo.png') }}" class="logo" alt=""></a>
+            <a class="navbar-brand" href="{{ route('inicio') }}"><img src="{{ asset('site/img/logo.png') }}" class="logo" alt=""></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

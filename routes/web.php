@@ -18,7 +18,7 @@ Route::get('/buscar-imoveis', 'FrontController@buscarImoveis')->name('buscar-imo
 
 Route::get('/contato', 'FrontController@contato')->name('contato');
 
-Route::get('/imovel/{id}', 'FrontController@imovel')->name('ap-imovel');
+Route::get('/imovel-selecionado/{id}', 'FrontController@mostrar')->name('ap-imovel');
 
 
 

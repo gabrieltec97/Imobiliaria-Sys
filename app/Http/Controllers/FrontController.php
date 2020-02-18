@@ -33,17 +33,22 @@ class FrontController extends Controller
         return view('inicio', compact('imoveisAluguel', 'imoveisVenda', 'imagens', 'fotos'));
     }
 
+
     public function buscarImoveis()
     {
         return view('buscar-imoveis');
     }
 
-    public function imovel($id)
+
+    public function mostrar($id)
     {
         $imovel = Imovel::find($id);
+        $imagens = DB::table('imovel_fotos')->select('foto_anuncio')
+            ->where('id_anuncio', '=', $id)->get()->toArray();
 
-        return view('imovel-front', compact('imovel'));
+        return view('imovel-front', compact('imovel', 'imagens'));
     }
+
 
     public function contato()
     {

@@ -119,7 +119,7 @@
             <div class="row mt-5">
                 @foreach($imoveisVenda as $key => $value)
                 <div class="col-12 col-sm-4 col-lg-4 quarta_dobra_cards">
-                        <div class="card" style="height: 40rem">
+                        <div class="card" style="height: 55rem">
                             @foreach($fotos as $foto)
                                 @if($value->id == $foto['id'])
                                     <a href="{{ route('ap-imovel', $value->id) }}"><img class="card-img-top img-fluid" src="{{ asset($foto['foto']) }}" style="height: 210px" alt="Card image cap"></a>
@@ -173,44 +173,38 @@
                 <div class="row mt-5">
                     @foreach($imoveisAluguel as $key => $value)
                         <div class="col-12 col-sm-4 col-lg-4 quarta_dobra_cards">
-                            <div class="card" style="height: 40rem">
+                            <div class="card" style="height: 55rem">
                                 @foreach($fotos as $foto)
                                     @if($value->id == $foto['id'])
-                                        <img class="card-img-top img-fluid" src="{{ asset($foto['foto']) }}" style="height: 210px" alt="Card image cap">
+                                        <a href="{{ route('ap-imovel', $value->id) }}"><img class="card-img-top img-fluid" src="{{ asset($foto['foto']) }}" style="height: 210px" alt="Card image cap"></a>
                                     @endif
                                 @endforeach
 
-                                <div class="card-body mb-2">
-                                    <h5 class="card-title text-front"><b>{{ $value->nome }}</b></h5>
-                                    <p class="card-text text-muted">{{ $value->descricao }}</p>
-                                    <p class="text-muted font-weight-bold">{{ $value->tipo_imovel }} - {{ $value->cidade }} &nbsp;<i class="fas fa-location-arrow icon-1"></i></p>
-                                    <h4 class="text-front"><b>R$: {{ $value->valor }}</b></h4>
-                                </div>
+                                    <div class="card-body mb-2">
+                                        <a href="{{ route('ap-imovel', $value->id) }}"><h5 class="card-title text-front"><b>{{ $value->nome }}</b></h5></a>
+                                        <a href="{{ route('ap-imovel', $value->id) }}"><p class="card-text text-muted">{{ $value->descricao }}</p></a>
+                                        <a href="{{ route('ap-imovel', $value->id) }}"><p class="text-muted font-weight-bold">{{ $value->tipo_imovel }} - {{ $value->cidade }} &nbsp;<i class="fas fa-location-arrow icon-1"></i></p></a>
+                                        <a href="{{ route('ap-imovel', $value->id) }}"><h4 class="text-front"><b>R$: {{ $value->valor }}</b></h4></a>
+                                    </div>
 
-                                <div class="card-footer">
-                                    <div class="row quarta_dobra_content">
-                                        <div class="col-4 mt-1">
-                                            <i class="fas fa-bed icon-footer text-front"></i>
-                                            <p style="margin-left: 15px; margin-top: 5px"><b>{{ $value->qt_quartos }}</b></p>
-                                        </div>
+                                    <div class="card-footer">
+                                        <div class="row quarta_dobra_content">
+                                            <div class="col-4 mt-1">
+                                                <a href="{{ route('ap-imovel', $value->id) }}"><i class="fas fa-bed icon-footer text-front"></i></a>
+                                                <a href="{{ route('ap-imovel', $value->id) }}"><p style="margin-left: 15px; margin-top: 5px"><b>{{ $value->qt_quartos }}</b></p></a>
+                                            </div>
 
-                                        <div class="col-4 mt-1">
-                                            <i class="fas fa-warehouse icon-footer text-front"></i>
-                                            <p style="margin-left: 15px; margin-top: 5px"><b>
-                                                    @if($value->vagas_garagem == 'Não possui')
-                                                        0
-                                                    @else
-                                                        {{ $value->vagas_garagem  }}
-                                                    @endif
-                                                </b></p>
-                                        </div>
+                                            <div class="col-4 mt-1">
+                                                <a href="{{ route('ap-imovel', $value->id) }}"><i class="fas fa-warehouse icon-footer text-front"></i></a>
+                                                <a href="{{ route('ap-imovel', $value->id) }}"><p style="margin-left: 15px; margin-top: 5px"><b>{{ ($value->vagas_garagem > 0 ) ? $value->vagas_garagem : '0' }}</b></p></a>
+                                            </div>
 
-                                        <div class="col-4 mt-1">
-                                            <i class="fas fa-home icon-footer text-front"></i>
-                                            <p style="margin-top: 5px"><b>180m²</b></p>
+                                            <div class="col-4 mt-1">
+                                                <a href="{{ route('ap-imovel', $value->id) }}"><i class="fas fa-home icon-footer text-front"></i></a>
+                                                <a href="{{ route('ap-imovel', $value->id) }}"><p style="margin-top: 5px"><b>180m²</b></p></a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                             </div>
                         </div>
                     @endforeach
