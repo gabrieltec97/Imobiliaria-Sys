@@ -20,6 +20,8 @@ Route::get('/contato', 'FrontController@contato')->name('contato');
 
 Route::get('/imovel-selecionado/{id}', 'FrontController@mostrar')->name('ap-imovel');
 
+Route::get('/envio-email', 'FrontController@enviarEmail')->name('envia-email');
+
 
 
 
