@@ -22,6 +22,10 @@ Route::get('/imovel-selecionado/{id}', 'FrontController@mostrar')->name('ap-imov
 
 Route::get('/envio-email', 'FrontController@enviarEmail')->name('envia-email');
 
+Route::get('/contato-email', 'FrontController@contatoEmail')->name('contato-email');
+
+
+
 
 
 

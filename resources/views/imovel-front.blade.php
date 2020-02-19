@@ -107,7 +107,7 @@
                     @csrf
                     <div class="row">
                         <div class="col-12 col-lg-6 mb-4 mb-lg-0">
-                        <textarea name="imovel" class="form-control" rows="8">Olá, eu fiquei interessado(a) no imóvel {{ $imovel->nome }} ({{ $imovel->id }}), poderia entrar em contato comigo para me dar mais informações sobre este imóvel?
+                        <textarea name="imovel" class="form-control" rows="8" style="resize: none">Olá, eu fiquei interessado(a) no imóvel {{ $imovel->nome }} ({{ $imovel->id }}), poderia entrar em contato comigo para me dar mais informações sobre este imóvel?
                         </textarea>
                         </div>
 
@@ -115,7 +115,7 @@
                             <input type="text" class="form-control mb-4" name="nome" placeholder="Digite seu nome">
                             <input type="email" class="form-control mb-4" name="email" placeholder="Digite seu e-mail">
                             <input type="number" class="form-control mb-4" name="tel" placeholder="Digite seu número de telefone">
-                            <input type="checkbox" name="contatowpp" value="positivo"> <span class="text-front font-weight-bold">&nbsp;Aceito ser respondido(a) via WhatsApp.</span>
+                            <input type="checkbox" style="cursor: pointer" name="contatowpp" value="positivo"> <span class="text-front font-weight-bold">&nbsp;Aceito ser respondido(a) via WhatsApp.</span>
                         </div>
 
                         <div class="col-12 mt-5">

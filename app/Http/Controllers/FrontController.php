@@ -65,6 +65,20 @@ class FrontController extends Controller
         return back()->with('msg', 'E-mail enviado com sucesso! Em breve estaremos entrando em contato com você. Até mais!');
     }
 
+    public function contatoEmail(Request $request)
+    {
+        $dados = array('nome' => $request->nome, 'email' => $request->email,
+            'telefone' => $request->telefone, 'mensagem' => $request->mensagem);
+
+        Mail::send('Email.email', compact('dados'), function ($m){
+            $m->from('gabtec9@gmail.com', 'Contato');
+            $m->subject('Contato via site');
+            $m->to('gabrieldeveloper23@hotmail.com');
+        });
+
+        return back()->with('msg', 'E-mail enviado com sucesso! Em breve estaremos entrando em contato com você. Até mais!');
+    }
+
 
     public function contato()
     {
