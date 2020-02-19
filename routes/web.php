@@ -24,6 +24,8 @@ Route::get('/envio-email', 'FrontController@enviarEmail')->name('envia-email');
 
 Route::get('/contato-email', 'FrontController@contatoEmail')->name('contato-email');
 
+Route::get('/busca-rapida', 'FrontController@buscaRapida')->name('busca-rapida');
+
 
 
 

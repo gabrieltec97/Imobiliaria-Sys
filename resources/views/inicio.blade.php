@@ -24,33 +24,59 @@
 
     <section class="segunda_dobra my-5">
         <div class="container">
-            <form action="">
+            <form action="{{ route('busca-rapida') }}">
+                @csrf
                 <div class="row">
                     <div class="col-sm-12 col-md-4 segunda_dobra_content">
                         <label><b>Comprar ou Alugar? &nbsp;&nbsp;&nbsp;</b></label>
-                        <select class="selectpicker w-100" title="Escolha...">
-                            <option value="">Comprar</option>
-                            <option value="">Alugar</option>
+                        <select class="selectpicker w-100" name="tipo_negocio" required title="Escolha...">
+                            <option value="Venda">Comprar</option>
+                            <option value="Aluguel">Alugar</option>
                         </select>
                     </div>
 
                     <div class="col-sm-12 col-md-4 segunda_dobra_content">
                         <label><b>Qual o tipo do imóvel?</b></label>
-                        <select class="selectpicker w-100" title="Escolha..." multiple data-actions-box="true">
-                            <option value="">Casa</option>
-                            <option value="">Apartamento</option>
-                            <option value="">Sobrado</option>
-                            <option value="">Quitinete</option>
-                            <option value="">Sala Comercial</option>
-                            <option value="">Escritório</option>
+                        <select class="selectpicker w-100" name="tipo_imovel" required title="Escolha...">
+                            <option>Casa</option>
+                            <option>Apartamento</option>
+                            <option>Casa de condomínio</option>
+                            <option>Quitinete</option>
+                            <option>Sala Comercial</option>
+                            <option>Escritório</option>
                         </select>
                     </div>
 
                     <div class="col-sm-12 col-md-4 segunda_dobra_content">
                         <label><b>Onde você quer? &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></label>
-                        <select class="selectpicker w-100" title="Escolha...">
-                            <option value="">Rio de Janeiro</option>
-                            <option value="">São Paulo</option>
+                        <select class="selectpicker w-100" name="estado" required title="Escolha...">
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
                         </select>
                     </div>
 
@@ -58,7 +84,7 @@
 
                 <div class="row text-right mt-5">
                     <div class="col-12 segunda_dobra_content_botao">
-                        <button class="btn btn-front" type="submit"><i class="fas fa-search-location"></i>&nbsp;&nbsp;Pesquisar</button>
+                        <button class="btn btn-front font-weight-bold" type="submit"><i class="fas fa-search-location"></i>&nbsp;&nbsp;Pesquisar</button>
                     </div>
                 </div>
             </form>
@@ -119,7 +145,7 @@
             <div class="row mt-5">
                 @foreach($imoveisVenda as $key => $value)
                 <div class="col-12 col-sm-4 col-lg-4 quarta_dobra_cards">
-                        <div class="card" style="height: 55rem">
+                        <div class="card"s>
                             @foreach($fotos as $foto)
                                 @if($value->id == $foto['id'])
                                     <a href="{{ route('ap-imovel', $value->id) }}"><img class="card-img-top img-fluid" src="{{ asset($foto['foto']) }}" style="height: 210px" alt="Card image cap"></a>

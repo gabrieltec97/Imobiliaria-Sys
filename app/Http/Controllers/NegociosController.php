@@ -139,6 +139,7 @@ class NegociosController extends Controller
 
             $imovel = new Imovel();
 
+            $imovel->id = $imovelNegocio->imovel_negociado;
             $imovel->nome = $imovelNegocio->nome;
             $imovel->endereco = $imovelNegocio->endereco;
             $imovel->cep = $imovelNegocio->cep;

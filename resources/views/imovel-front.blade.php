@@ -72,7 +72,7 @@
                        </div>
 
                        <div class="col-12 col-lg-4 my-4">
-                           <h6 class="font-weight-bold text-muted" style="font-size: 18px"><i class="fas fa-thumbs-up text-front mr-2" style="font-size: 26px"></i>{{ $imovel->status }}</h6>
+                           <h6 class="font-weight-bold text-muted" style="font-size: 18px"><i class="fas fa-thumbs-up text-success mr-2" style="font-size: 26px"></i>{{ $imovel->status }}</h6>
                        </div>
 
                        <div class="col-12 col-lg-4 my-4">
@@ -107,7 +107,7 @@
                     @csrf
                     <div class="row">
                         <div class="col-12 col-lg-6 mb-4 mb-lg-0">
-                        <textarea name="imovel" class="form-control" rows="8" style="resize: none">Olá, eu fiquei interessado(a) no imóvel {{ $imovel->nome }} ({{ $imovel->id }}), poderia entrar em contato comigo para me dar mais informações sobre este imóvel?
+                        <textarea name="imovel" class="form-control" disabled rows="8" style="resize: none">Olá, eu fiquei interessado(a) no imóvel {{ $imovel->nome }} ({{ $imovel->id }}), poderia entrar em contato comigo para me dar mais informações sobre este imóvel?
                         </textarea>
                         </div>
 

@@ -40,6 +40,30 @@ class FrontController extends Controller
         return view('buscar-imoveis');
     }
 
+    public function buscaRapida(Request $request)
+    {
+        $imoveis = DB::table('imovels')
+            ->where('tipo_negocio', '=', $request->tipo_negocio)
+            ->where('tipo_imovel', '=' , $request->tipo_imovel)
+            ->where('estado', '=' , $request->estado)->get()->toArray();
+
+        $imagens = DB::table('imovel_fotos')->select('id_anuncio')->distinct()->get()->toArray();
+
+        $fotos = array();
+
+        foreach ($imagens as $key => $value){
+            $foto = DB::table('imovel_fotos')->select('foto_anuncio', 'id_anuncio')
+                ->where('id_anuncio', '=', $value->id_anuncio)->get()->take(1)->toArray();
+
+            foreach ($foto as $key => $value){
+                array_push($fotos, ['id' => $value->id_anuncio, 'foto' => $value->foto_anuncio]);
+            }
+
+        }
+
+        return view('buscar-imoveis', compact('imoveis', 'fotos'));
+    }
+
 
     public function mostrar($id)
     {
