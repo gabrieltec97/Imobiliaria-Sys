@@ -7,10 +7,6 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-
-    //Área de Usuários.
-    //Cadastro.
-
     public function cadastrar_usuario(Request $request)
     {
         $user = new User();

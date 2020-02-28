@@ -115,7 +115,7 @@
                     </table>
                     @else
                         <div class="col-12 mt-5 mb-2">
-                            <h6 class="text-danger font-weight-bold">Este cliente ainda não negociou nenhum imóvel.</h6>
+                            <h6 class="text-danger font-weight-bold">Este cliente não está responsável por nenhum imóvel.</h6>
                         </div>
                     @endif
 

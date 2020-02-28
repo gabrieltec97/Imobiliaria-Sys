@@ -50,25 +50,20 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-12 mt-2">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-12">
-                                <h6 class="text-muted"><b>Busca rápida</b></h6>
-                                <form action="{{ route('pesquisar') }}" method="get" class="form-group">
-                                    <div class="row">
-                                        <div class="col-12 col-lg-9">
-                                            <input type="text" name="imovel" class="form-control bg-light my-3 my-md-0" value="{{ (!empty($busca)? $busca : '') }}" placeholder="Digite o nome do imóvel">
-                                        </div>
-
-                                        <div class="col-12 col-lg-3">
-                                            <button class="btn btn-custom font-weight-bold"><i class="fas fa-search mr-2"></i>Buscar</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+           <div class="col-12">
+            <h6 class="text-muted"><b>Busca rápida</b></h6>
+            <form action="{{ route('pesquisar') }}" method="get" class="form-group">
+               <div class="row">
+                    <div class="col-12 col-lg-9 col-xl-10">
+                        <input type="text" name="imovel" class="form-control bg-light my-3 my-md-0" value="{{ (!empty($busca)? $busca : '') }}" placeholder="Digite o nome do imóvel">
                     </div>
+
+                    <div class="col-12 col-lg-3 col-xl-2">
+                      <button class="btn btn-custom font-weight-bold"><i class="fas fa-search mr-2"></i>Buscar</button>
+                    </div>
+               </div>
+            </form>
+
             </div>
 
             <div class="col-12">

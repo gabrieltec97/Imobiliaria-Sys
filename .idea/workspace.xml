@@ -175,6 +175,7 @@
       <workItem from="1582047205046" duration="4461000" />
       <workItem from="1582072365514" duration="2041000" />
       <workItem from="1582123403719" duration="5730000" />
+      <workItem from="1582916548947" duration="4915000" />
     </task>
     <servers />
   </component>
@@ -186,9 +187,10 @@
       <screen x="0" y="0" width="1360" height="728" />
     </state>
     <state x="235" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1360.728/-1024.0.1024.728/1360.0.1024.728@0.0.1360.728" timestamp="1581374907966" />
-    <state x="410" y="140" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1581722571541">
+    <state x="410" y="140" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1582918857566">
       <screen x="0" y="0" width="1360" height="728" />
     </state>
+    <state x="410" y="140" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-1024.-8.1024.728/1360.-8.1024.728/0.0.1360.728@0.0.1360.728" timestamp="1582918857566" />
     <state x="410" y="140" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1360.728/-1024.0.1024.728/1360.0.1024.728@0.0.1360.728" timestamp="1581722571541" />
     <state x="344" y="176" key="run.anything.popup" timestamp="1582042292556">
       <screen x="0" y="0" width="1360" height="728" />

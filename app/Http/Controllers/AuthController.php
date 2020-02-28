@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -30,6 +31,10 @@ class AuthController extends Controller
 
     public function dashboard()
     {
-        return view('login.dashboard');
+        $imoveis = DB::table('imovels')->count();
+        $negocios = DB::table('negocios_fechados')->count();
+        $clientes = DB::table('clientes')->count();
+        $historico = DB::table('historicos')->count();
+        return view('login.dashboard', compact('imoveis', 'negocios', 'clientes', 'historico'));
     }
 }
