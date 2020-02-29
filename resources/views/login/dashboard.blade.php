@@ -21,7 +21,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer font-weight-bold text-center">Maiores Informações</div>
+                    <div class="card-footer font-weight-bold text-center">Mais Informações</div>
                 </div>
             </a>
         </div>
@@ -41,7 +41,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer font-weight-bold text-center">Maiores Informações</div>
+                    <div class="card-footer font-weight-bold text-center">Mais Informações</div>
                 </div>
             </a>
         </div>
@@ -60,7 +60,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer font-weight-bold text-center">Maiores Informações</div>
+                    <div class="card-footer font-weight-bold text-center">Mais Informações</div>
                 </div>
             </a>
         </div>
@@ -79,7 +79,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer font-weight-bold text-center">Maiores Informações</div>
+                    <div class="card-footer font-weight-bold text-center">Mais Informações</div>
                 </div>
             </a>
         </div>

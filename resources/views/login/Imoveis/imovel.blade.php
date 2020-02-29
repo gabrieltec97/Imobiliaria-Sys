@@ -128,11 +128,33 @@
                 @endif
             </form>
 
-            <form action="{{ route('imovel.destroy', $imovel->id) }}" method="post">
-                @csrf
-                @method('DELETE')
-                <button class="btn btn-danger mb-3 mb-md-0 font-weight-bold"><i class="fas fa-trash mr-2"></i>Excluir Anúncio</button>
-            </form>
+            <button class="btn btn-danger mb-3 mb-md-0 font-weight-bold" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-trash mr-2"></i>Excluir Anúncio</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-front" id="exampleModalLabel"><i class="fas fa-exclamation-circle mr-2"></i>ATENÇÃO!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="font-weight-bold">Deseja excluir o anúncio do imóvel <span class="text-front">{{ $imovel->nome }}</span>? Ao excluir, ele não ficará mais
+                acessível para visualização e negociação. Tem certeza que deseja prosseguir com a exclusão?</p>
+            </div>
+            <div class="modal-footer">
+                <form action="{{ route('imovel.destroy', $imovel->id) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                <button type="submit" class="btn btn-danger font-weight-bold">Sim, excluir!</button>
+                </form>
+                <button type="button" class="btn btn-success font-weight-bold" data-dismiss="modal">Fechar</button>
+            </div>
         </div>
     </div>
 </div>

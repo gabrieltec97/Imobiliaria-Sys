@@ -192,8 +192,23 @@
                         @csrf
                         <div class="row">
                             <div class="col-12">
-                                <label class="text-muted font-weight-bold">Informe o motivo do cancelamento do negócio:</label>
+                                <label class="text-muted font-weight-bold">Informe o motivo do cancelamento do negócio:<span class="text-danger"> *</span></label>
                                 <textarea name="cancelamento" rows="5" class="form-control"></textarea>
+                            </div>
+
+                            <div class="col-12 my-3">
+                                <label class="text-muted font-weight-bold">Informe a situação financeira referente ao negócio: <span class="text-danger"> *</span></label>
+                                <select name="financeiro" class="selectpicker w-100" title="Escolha...">
+                                    <option>Pago</option>
+                                    <option>Mensalidades pagas</option>
+                                    <option>Em dívida de pagamento</option>
+                                    <option>Em dívida de pagamento de mensalidade</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="text-muted font-weight-bold">Observações:</label>
+                                <textarea name="observacoes" rows="5" class="form-control"></textarea>
                             </div>
                         </div>
                 </div>

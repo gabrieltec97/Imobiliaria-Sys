@@ -130,7 +130,8 @@ class NegociosController extends Controller
             //Atualizando o histórico
             DB::table('historicos')->where('id_negocio_fechado', '=', $imovelNegocio->id)
                 ->update(['status' => 'Negócio Encerrado', 'motivo_encerramento' => $request->cancelamento,
-                'data_encerramento' => $atual]);
+                'data_encerramento' => $atual, 'status_pagamento' => $request->financeiro,
+                'observacoes' => $request->observacoes]);
 
             return redirect(route('imovel.index'))->with('msg-4', 'Negócio desfeito com sucesso!');
 

@@ -12,7 +12,7 @@ class HistoricoController extends Controller
 
     public function index()
     {
-        $negocios = DB::table('historicos')->paginate(7);
+        $negocios = DB::table('historicos')->orderByDesc('updated_at')->paginate(7);
         $cliente = Cliente::all();
         $verificacao = 1;
         $valor = 35;
@@ -32,7 +32,7 @@ class HistoricoController extends Controller
     {
         $busca =  $request->imovel;
         $negocios = DB::table('historicos')
-            ->where('nome_imovel', 'like', '%'. $busca . '%')->get()->toArray();
+            ->where('nome_imovel', 'like', '%'. $busca . '%')->paginate(7);
 
         if(count($negocios) == 0){
             $valor = 0;

@@ -108,7 +108,6 @@ class ImovelController extends Controller
         $imagens = DB::table('imovel_fotos')->selectRaw('foto_anuncio')
             ->whereRaw('id_anuncio = '. $id)->get();
 
-
         return view('login.Imoveis.imovel', compact('imagens', 'imovel'));
     }
 
