@@ -85,8 +85,6 @@ class NegociosController extends Controller
         return redirect(route('negocios_fechados.index'))->with('msg-4', 'Registro editado com sucesso!');
     }
 
-
-
     public function retornar(Request $request, $id)
     {
         $hoje = new \DateTime();

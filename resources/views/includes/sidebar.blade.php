@@ -103,9 +103,9 @@
 
                         if($hora >= 0 && $hora <= 5){
                             echo "Boa noite,  ";
-                        }elseif($hora >= 5 && $hora <= 12){
+                        }elseif($hora >= 5 && $hora < 12){
                             echo "Bom dia, ";
-                        }elseif($hora >= 12 && $hora <= 18){
+                        }elseif($hora >= 12 && $hora < 18){
                             echo "Boa tarde,  ";
                         }else {
                             echo "Boa noite,  ";

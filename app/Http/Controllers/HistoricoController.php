@@ -54,7 +54,10 @@ class HistoricoController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+       $historico = DB::table('historicos')->where('id_negocio_fechado', '=', $id)->update(['status_pagamento' => 'Mensalidades pagas',
+           'observacoes' => null]);
+
+       return redirect(route('historico.show', $id))->with('msg', 'Débitos zerados com sucesso!');
     }
 
 

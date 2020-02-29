@@ -116,7 +116,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/negociar-cadastrar/{id}', 'NegociosController@negociarCadastrar')->name('negociar-cadastrar');
 
 
-
     //Rota de Negócios Fechados
     Route::get('/pesquisar', 'NegociosController@pesquisaNegocios')->name('pesquisar');
 
