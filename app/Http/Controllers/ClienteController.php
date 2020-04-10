@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use App\NegociosFechados;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -82,9 +83,20 @@ class ClienteController extends Controller
     public function destroy($id)
     {
         $cliente = Cliente::find($id);
-        $cliente->delete();
+        $verificacao = DB::table('negocios_fechados')
+            ->select('cliente_responsavel', 'nome')
+            ->where('cliente_responsavel', '=', $id)
+            ->get()->toArray();
 
-        return redirect(route('cliente.index'))->with('msg-3', 'Cadastro de cliente deletado com sucesso!');
+        if(count($verificacao) == 1){
+            return back()->with('msg', 'O cadastro deste cliente não pôde ser deletado, pois ele está responsável
+            pelo imóvel '. $verificacao[0]->nome . '. Desvincule-o deste imóvel para depois fazer a exclusão.');
+        }else{
+            $cliente->delete();
+
+            return redirect(route('cliente.index'))->with('msg-3', 'Cadastro de cliente deletado com sucesso!');
+        }
+
     }
 
     public function busca(Request $request)

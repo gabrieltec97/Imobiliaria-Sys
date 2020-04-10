@@ -9,6 +9,20 @@
         <div class="col-12">
             <h1 class="text-muted text-center mb-3">Dados do cliente</h1>
         </div>
+
+        <div class="col-12 w-100">
+            @if(session('msg'))
+                <div class="col-12 mt-2 w-100">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <p><b>{{ session('msg') }}</b></p>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            @endif
+        </div>
+
         <div class="card">
             <div class="card-body card-cad">
                 <div class="row mt-4">
